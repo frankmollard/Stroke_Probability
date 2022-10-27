@@ -183,6 +183,6 @@ def predict(df, cv: list):
 
     return p
 
-pred = predict(data, contVars):
+pred = predict(data, contVars)
 
 st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
