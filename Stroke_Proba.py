@@ -27,7 +27,7 @@ URL="https://strokemodels.s3.eu-central-1.amazonaws.com"
 
 data_load_state = st.text('Loading models...')
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def loadAllModels(url):
     m1 = joblib.load(urllib.request.urlopen(url + "/" + "svm1.pkl"))
     m2 = joblib.load(urllib.request.urlopen(url + "/" + "svm2.pkl"))
