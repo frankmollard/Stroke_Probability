@@ -48,7 +48,7 @@ st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 81)  # min: 0h, max: 23h, default: 17h
 bmi = st.sidebar.slider('BMI', 0, 100, 30) 
-agl = st.sidebar.slider('Average Glucose Level', 0, 300, 100) 
+agl = st.sidebar.slider('Average Glucose Level', 0, 400, 90) 
 
 smoking = st.sidebar.selectbox(
     'Smoking Status', ["Never Smoked", "Formally Smoked", "Smoker", "Unknown"]
@@ -188,10 +188,10 @@ data_load_state.text("Prediction done")
 
 st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
 
-if bmi > 35 and age > 75:
+if bmi > 45 and age > 75:
         st.text(
         """
-        Note: Data are implausible.
-        BMI > 35 and age > 75.
+        Note: Information is unreliable.
+        BMI > 45 and age > 75.
         """
         )
