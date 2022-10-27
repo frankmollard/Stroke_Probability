@@ -139,7 +139,7 @@ if hyTen == "Yes":
 else:
     hypertension = 0
     
-#smoking = st.sidebar.multiselect('Which films do you want to show data for?', FILMS)
+data_load_state.text("Predicting...")
 
 data = pd.DataFrame(
     data=[
@@ -184,5 +184,6 @@ def predict(df, cv: list):
     return p
 
 pred = predict(data, contVars)
+data_load_state.text("Prediction done")
 
 st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
