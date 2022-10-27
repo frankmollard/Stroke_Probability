@@ -1,6 +1,6 @@
+streamlit
 sklearn
 joblib
-streamlit
 pandas
 numpy
 urllib
