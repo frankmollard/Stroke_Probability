@@ -2,7 +2,6 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
-from catboost import CatBoostClassifier
 from sklearn.preprocessing import StandardScaler
 import joblib
 import streamlit as st
@@ -36,9 +35,6 @@ rf2 = joblib.load(urllib.request.urlopen(URL + "/" + "rf2.pkl"))
 # Notify the reader that the data was successfully loaded.
 data_load_state.text("AI-Models Loaded")
 
-#if st.checkbox('Show raw data'):
-#    st.subheader('Raw data')
-#    st.write(data)
 st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 81)  # min: 0h, max: 23h, default: 17h
