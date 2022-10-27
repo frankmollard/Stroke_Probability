@@ -187,3 +187,11 @@ pred = predict(data, contVars)
 data_load_state.text("Prediction done")
 
 st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
+
+if bmi > 35 and age > 75:
+        st.text(
+        """
+        Note: Data are implausible.
+        BMI > 35 and age > 75.
+        """
+        )
