@@ -1,12 +1,16 @@
+import streamlit as st
+
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
+
 import joblib
-import streamlit as st
+
 import pandas as pd
 import numpy as np
+
 import urllib.request
 
 st.title('Stroke Prediction')
