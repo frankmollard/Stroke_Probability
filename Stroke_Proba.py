@@ -173,4 +173,4 @@ pred = (psvm1 + psvm2) / 2 * 0.5 \
     + (prf1 + prf2) / 2 * 0.15\
     + (plogit1 + plogit2) / 2 * 0.1
 
-st.metric(label="Probability of Stroke", value=str(round(pred*100, 2)) + " %", delta=None)
+st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
