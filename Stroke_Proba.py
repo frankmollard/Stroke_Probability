@@ -6,12 +6,19 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
+from catboost import CatBoostClassifier
+
 import joblib
 
 import pandas as pd
 import numpy as np
 
 import urllib.request
+
+import boto3
+from botocore.config import Config
+from botocore import UNSIGNED
+import io
 
 st.title('Stroke Prediction')
 st.text(
@@ -27,20 +34,52 @@ URL="https://strokemodels.s3.eu-central-1.amazonaws.com"
 
 data_load_state = st.text('Loading models...')
 
+#Load Sklearn models
 @st.cache(allow_output_mutation=True)
 def loadAllModels(url):
-    m1 = joblib.load(urllib.request.urlopen(url + "/" + "svm1.pkl"))
-    m2 = joblib.load(urllib.request.urlopen(url + "/" + "svm2.pkl"))
-    m3 = joblib.load(urllib.request.urlopen(url + "/" + "logit1.pkl"))
-    m4 = joblib.load(urllib.request.urlopen(url + "/" + "logit2.pkl"))
-    m5 = joblib.load(urllib.request.urlopen(url + "/" + "nbc1.pkl"))
-    m6 = joblib.load(urllib.request.urlopen(url + "/" + "nbc2.pkl"))
-    m7 = joblib.load(urllib.request.urlopen(url + "/" + "rf1.pkl"))
-    m8 = joblib.load(urllib.request.urlopen(url + "/" + "rf2.pkl"))
+    models=[]
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2"]:
+        models.append(
+            joblib.load(
+                urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
+                )
+            )
+
         
-    return m1, m2, m3, m4, m5, m6, m7, m8
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7]
 
 svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2 = loadAllModels(URL)
+
+#Load CatBoost
+
+
+@st.cache(allow_output_mutation=True)
+def loadCatBoost():
+    
+    s3 = boto3.resource(
+        service_name='s3',
+        region_name='eu-central-1',
+        config=Config(signature_version=UNSIGNED)
+    )
+    bucket = s3.Bucket('strokemodels')
+
+    models=[]
+
+    for c in ["cb1", "cb2"]:
+        
+        obj = bucket.Object("%s" % (c))
+        file_stream = io.BytesIO()
+        obj.download_fileobj(file_stream)# downoad to memory
+        
+        CB = CatBoostClassifier()
+        
+        models.append(CB.load_model(blob=file_stream.getvalue()))
+        
+    return models[0], models[1]
+    
+cb1, cb2 = loadCatBoost()
+
+
 # Notify the reader that the data was successfully loaded.
 data_load_state.text("AI-Models Loaded")
 
@@ -48,27 +87,31 @@ st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 81)  # min: 0h, max: 23h, default: 17h
 bmi = st.sidebar.slider('BMI', 0, 100, 30) 
-agl = st.sidebar.slider('Average Glucose Level', 0, 400, 90) 
+agl = st.sidebar.slider('Average Glucose Level', 0, 400, 100) 
 
 smoking = st.sidebar.selectbox(
-    'Smoking Status', ["Never Smoked", "Formally Smoked", "Smoker", "Unknown"]
+    'Smoking Status', ["Never Smoked", "Formerly Smoked", "Smokes", "Unknown"]
     )
 if smoking == "Never Smoked":   
     smoking_status_formerly_smoked = 0
     smoking_status_smokes = 0
     smoking_status_never_smoked = 1
-elif smoking == "formerly smoked":
+    smoking_status = "never nmoked"
+elif smoking == "Formerly Smoked":
     smoking_status_formerly_smoked = 1
     smoking_status_smokes = 0
     smoking_status_never_smoked = 0
-elif smoking == "smokes":
+    smoking_status = "formerly smoked"
+elif smoking == "Smokes":
     smoking_status_formerly_smoked = 0
     smoking_status_smokes = 1
     smoking_status_never_smoked = 0
+    smoking_status = "smokes"
 else:
     smoking_status_formerly_smoked = 0
     smoking_status_smokes = 0
-    smoking_status_never_smoked = 0    
+    smoking_status_never_smoked = 0   
+    smoking_status = "Unknown"
     
 heart = st.sidebar.selectbox(
     'Heart Disease', ["Yes", "No"]
@@ -94,34 +137,41 @@ if work_type == "Children":
     work_type_Self_employed	= 0
     work_type_Private = 0
     work_type_Never_worked = 0
+    workType = "children"
 elif work_type == "Never worked":
     work_type_children = 0
     work_type_Self_employed	= 0
     work_type_Private = 0
     work_type_Never_worked = 1
+    workType = "Never_worked"
 elif work_type == "Private":
     work_type_children = 0
     work_type_Self_employed	= 0
     work_type_Private = 1
     work_type_Never_worked = 0
+    workType = "Private"
 elif work_type == "Self-employed":
     work_type_children = 0
     work_type_Self_employed	= 1
     work_type_Private = 0
     work_type_Never_worked = 0
+    workType = "Self-employed"
 else:
     work_type_children = 0
     work_type_Self_employed	= 0
     work_type_Private = 0
     work_type_Never_worked = 0
+    workType = "Govt_job"
     
 married = st.sidebar.selectbox(
-    'Ever Married_Yes', ["Yes", "No"]
+    'Ever Married', ["Yes", "No"]
     )    
-if gender == "Yes":
+if married == "Yes":
     ever_married_Yes = 1
+    ever_married = True
 else:
     ever_married_Yes = 0
+    ever_married = False
     
 residence_type = st.sidebar.selectbox(
     'Residence Type', ["Urban", "Rural"]
@@ -155,10 +205,49 @@ data = pd.DataFrame(
        'Residence_type_Urban', 'smoking_status_formerly smoked',
        'smoking_status_never smoked', 'smoking_status_smokes']
     ).T
+
+dataC = pd.DataFrame(
+    data=[
+        [gender], [age], [hypertension], [heart_disease], [ever_married], 
+        [workType], [residence_type], [agl], 
+        [bmi], [smoking_status]
+        ], 
+    index=['gender', 'age', 'hypertension', 'heart_disease', 'ever_married',
+       'work_type', 'Residence_type', 'avg_glucose_level',
+       'bmi', 'smoking_status']
+    ).T
+###TEST#############
+#data = pd.DataFrame(
+#    data=[
+#        [38], [1], [1], [100], [30], 
+#        [1], [0], [0], 
+#        [0], [1], [1], 
+#        [1], [1], 
+#        [0], [0]
+#        ], 
+#    index=['age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi',
+#       'gender_Male', 'work_type_Never_worked', 'work_type_Private',
+#       'work_type_Self-employed', 'work_type_children', 'ever_married_Yes',
+#       'Residence_type_Urban', 'smoking_status_formerly smoked',
+#       'smoking_status_never smoked', 'smoking_status_smokes']
+#    ).T
+
+#dataC = pd.DataFrame(
+#    data=[
+#        [1], [38], [1], [1], [True], 
+#        ["children"], ["Rural"], [100], 
+#        [30], ["formerly smoked"]
+#        ], 
+#    index=['gender', 'age', 'hypertension', 'heart_disease', 'ever_married',
+#       'work_type', 'Residence_type', 'avg_glucose_level',
+#       'bmi', 'smoking_status']
+#    ).T
+###TEST#############
+
 contVars = ["age", "avg_glucose_level", "bmi"]
 
 @st.cache
-def predict(df, cv: list):
+def predict(df, dfc, cv: list):
         
     psvm1 = svm1.predict_proba(df[cv])[0][1]
     psvm2 = svm2.predict_proba(df[cv])[0][1]
@@ -175,15 +264,17 @@ def predict(df, cv: list):
 
     plogit1 = logit1.predict_proba(df)[0][1]
     plogit2 = logit2.predict_proba(df)[0][1]
+    
+    pcb1 = cb1.predict(dfc, prediction_type='Probability')[:, 1]
+    pcb2 = cb2.predict(dfc, prediction_type='Probability')[:, 1]
 
-    p = (psvm1 + psvm2) / 2 * 0.5 \
-        + (pnbc1 + pnbc2) / 2 * 0.25\
-        + (prf1 + prf2) / 2 * 0.15\
-        + (plogit1 + plogit2) / 2 * 0.1
+    p = (psvm1 * 0.82 + prf1 * 0.04 + plogit1 * 0.02 + pcb1[0] * 0.06 + pnbc1 * 0.06) / 2 + \
+        (psvm2 * 0.13 + prf2 * 0.02 + plogit2 * 0.28 + pcb2[0] * 0.22 + pnbc2 * 0.35) / 2
 
     return p
 
-pred = predict(data, contVars)
+pred = predict(data, dataC, contVars)
+
 data_load_state.text("Prediction done")
 
 st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
