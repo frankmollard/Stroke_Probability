@@ -1,5 +1,8 @@
 streamlit
 sklearn
+catboost
 joblib
 pandas
 numpy
+boto3
+botocore
