@@ -191,7 +191,7 @@ if hyTen == "Yes":
 else:
     hypertension = 0
 
-st.sidebar.text("Hello!")
+st.sidebar.text(" ")
 ###############SIDEBAR END##################
     
 data_load_state.text("Predicting...")
@@ -304,8 +304,7 @@ elif bmi >= 35 and bmi < 40:
 elif bmi >= 40:
         st.text("Extreme Obesity")
         
-
-st.subheader("Your Data")
+#####Data Visualization#########
 viz = dataC
 viz.rename(
         columns={
