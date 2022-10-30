@@ -301,4 +301,7 @@ elif bmi >= 40:
         
 
 st.subheader("Your Data")
-st.table(data=dataC)
+viz = dataC
+viz.rename(index={0: 'Data entered'})
+
+st.table(data=viz.T)
