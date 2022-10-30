@@ -296,5 +296,9 @@ elif bmi >= 30 and bmi < 35:
         st.text("Moderate Obesity")
 elif bmi >= 35 and bmi < 40:
         st.text("Strong Obesity")
-elif bmi > 40:
+elif bmi >= 40:
         st.text("Extreme Obesity")
+        
+
+st.subheader("Your Data")
+st.table(data=dataC)
