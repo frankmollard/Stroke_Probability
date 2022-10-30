@@ -302,6 +302,26 @@ elif bmi >= 40:
 
 st.subheader("Your Data")
 viz = dataC
-viz.rename(index={0: 'Data entered'}, inplace=True)
+viz.rename(
+        columns={
+                "age": "Age",
+                "bmi": "BMI",
+                "avg_glucose_level": "Average Glucose Level",
+                "smoking_status": "Smoking Status",
+                "heart_disease": "Heart Disease",
+                "gender": "Gender",
+                "work_type": "Work Type",
+                "ever_married": "Ever Married",
+                "Residence_type": "Residence Type",
+                "hypertension": "Hypertension",    
+        }, 
+        index={0: 'Data entered'}, 
+        inplace=True
+)
+viz["Hypertension"] = hyTen
+viz["Heart Disease"] = heart
+viz["Ever Married"] = married
+viz["Work Type"] = work_type
+viz["Smoking Status"] = smoking
 
 st.table(data=viz.T)
