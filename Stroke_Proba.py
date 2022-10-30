@@ -191,7 +191,7 @@ if hyTen == "Yes":
 else:
     hypertension = 0
 
-st.sidebar.text("")
+st.sidebar.text("\n\n")
 ###############SIDEBAR END##################
     
 data_load_state.text("Predicting...")
