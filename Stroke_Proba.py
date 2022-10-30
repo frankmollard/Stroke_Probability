@@ -286,3 +286,15 @@ if bmi > 45 and age > 75:
         BMI > 45 and age > 75.
         """
         )
+elif bmi < 18.5:
+        st.text("Shortweight")
+elif bmi >= 18.5 and bmi < 25:
+        st.text("Normal Weight")
+elif bmi >= 25 and bmi < 30:
+        st.text("Overweight")
+elif bmi >= 30 and bmi < 35:
+        st.text("Moderate Obesity")
+elif bmi >= 35 and bmi < 40:
+        st.text("Strong Obesity")
+elif bmi > 40:
+        st.text("Extreme Obesity")
