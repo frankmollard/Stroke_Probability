@@ -285,15 +285,17 @@ data_load_state.text("Prediction done")
 #########Save User-data by caching############
 @st.cache(allow_output_mutation=True)
 def userData():
-    return [0]
+    return []
 
-if len(userData()) == 1:
-    userData().append(round(pred*100, 1))
+if len(userData()) == 0:
+    userData().extend([0, round(pred*100, 1)])
+    delta = userData()[1] - userData()[0]
 else:
     userData().pop(0)
     userData().append(round(pred*100, 1))
+    delta = userData()[1] - userData()[0]
         
-st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData()[-2])
+st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=delta)
 
 #######Additional Information##################
 
