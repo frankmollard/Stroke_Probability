@@ -286,9 +286,11 @@ data_load_state.text("Prediction done")
 userData = [0]
 if len(userData) == 1:
     userData.append(round(pred*100, 1))
+    st.write(userData)
 else:
     userData.pop(0)
     userData.append(round(pred*100, 1))
+    st.write(userData)
         
 st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData[-2])
 
