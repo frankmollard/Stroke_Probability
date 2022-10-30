@@ -289,7 +289,7 @@ def userData():
 
 if len(userData()) == 0:
     userData().extend([0, round(pred*100, 1)])
-    delta = userData()[1] - userData()[0]
+    delta = 0
 else:
     userData().pop(0)
     userData().append(round(pred*100, 1))
