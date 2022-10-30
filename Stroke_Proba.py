@@ -83,6 +83,8 @@ cb1, cb2 = loadCatBoost()
 # Notify the reader that the data was successfully loaded.
 data_load_state.text("AI-Models Loaded")
 
+###############SIDEBAR START################
+
 st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 81)  # min: 0h, max: 23h, default: 17h
@@ -188,6 +190,9 @@ if hyTen == "Yes":
     hypertension = 1
 else:
     hypertension = 0
+
+st.sidebar.text("")
+###############SIDEBAR END##################
     
 data_load_state.text("Predicting...")
 
