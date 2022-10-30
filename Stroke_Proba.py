@@ -287,7 +287,7 @@ data_load_state.text("Prediction done")
 def userData():
     return [0]
 
-if len(userData) == 1:
+if len(userData()) == 1:
     userData().append(round(pred*100, 1))
 else:
     userData().pop(0)
