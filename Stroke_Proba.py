@@ -352,4 +352,6 @@ viz["Ever Married"] = married
 viz["Work Type"] = work_type
 viz["Smoking Status"] = smoking
 
+viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
+
 st.table(data=viz.T)
