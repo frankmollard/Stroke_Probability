@@ -293,7 +293,7 @@ else:
     userData().pop(0)
     userData().append(round(pred*100, 1))
         
-st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData[-2])
+st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData()[-2])
 
 #######Additional Information##################
 
