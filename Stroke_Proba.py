@@ -24,7 +24,7 @@ st.title('Stroke Prediction')
 st.text(
         """
         This application uses various AI-algorithms
-        to indicate the probability of a stroke. If a stroke is suspected, 
+        to indicate the risk of a stroke. If a stroke is suspected, 
         a doctor must always be consulted. This is a medical emergency. 
         This application is for demonstration purposes only. 
         """
@@ -277,7 +277,7 @@ pred = predict(data, dataC, contVars)
 
 data_load_state.text("Prediction done")
 
-st.metric(label="Probability of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
+st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
 
 if bmi > 45 and age > 75:
         st.text(
