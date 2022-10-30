@@ -282,45 +282,55 @@ pred = predict(data, dataC, contVars)
 
 data_load_state.text("Prediction done")
 
-st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=None)
+#########Save User-data############
+userData = [0]
+if len(userData) == 1:
+    userData.append(round(pred*100, 1))
+else:
+    userData.pop(0)
+    userData.append(round(pred*100, 1))
+        
+st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData[-2])
+
+#######Additional Information##################
 
 if bmi > 45 and age > 75:
-        st.text(
-        """
-        Note: Information is unreliable.
-        BMI > 45 and age > 75.
-        """
-        )
+    st.text(
+    """
+    Note: Information is unreliable.
+    BMI > 45 and age > 75.
+    """
+    )
 elif bmi < 18.5:
-        st.text("Shortweight")
+    st.text("Shortweight")
 elif bmi >= 18.5 and bmi < 25:
-        st.text("Normal Weight")
+    st.text("Normal Weight")
 elif bmi >= 25 and bmi < 30:
-        st.text("Overweight")
+    st.text("Overweight")
 elif bmi >= 30 and bmi < 35:
-        st.text("Moderate Obesity")
+    st.text("Moderate Obesity")
 elif bmi >= 35 and bmi < 40:
-        st.text("Strong Obesity")
+    st.text("Strong Obesity")
 elif bmi >= 40:
-        st.text("Extreme Obesity")
+    st.text("Extreme Obesity")
         
 #####Data Visualization#########
 viz = dataC
 viz.rename(
-        columns={
-                "age": "Age",
-                "bmi": "BMI",
-                "avg_glucose_level": "Average Glucose Level",
-                "smoking_status": "Smoking Status",
-                "heart_disease": "Heart Disease",
-                "gender": "Gender",
-                "work_type": "Work Type",
-                "ever_married": "Ever Married",
-                "Residence_type": "Residence Type",
-                "hypertension": "Hypertension",    
-        }, 
-        index={0: 'Data entered'}, 
-        inplace=True
+    columns={
+        "age": "Age",
+        "bmi": "BMI",
+        "avg_glucose_level": "Average Glucose Level",
+        "smoking_status": "Smoking Status",
+        "heart_disease": "Heart Disease",
+        "gender": "Gender",
+        "work_type": "Work Type",
+         "ever_married": "Ever Married",
+        "Residence_type": "Residence Type",
+        "hypertension": "Hypertension",    
+    }, 
+    index={0: 'Data entered'}, 
+    inplace=True
 )
 viz["Hypertension"] = hyTen
 viz["Heart Disease"] = heart
