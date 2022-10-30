@@ -302,7 +302,8 @@ st.metric(
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
-    """
+    """,
+    delta_color ="inverse"
 )
 
 #######Additional Information##################
