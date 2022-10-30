@@ -315,7 +315,9 @@ if bmi > 45 and age > 75:
     BMI > 45 and age > 75.
     """
     )
-elif bmi < 18.5:
+elif bmi <= 10:
+    st.text("BMI too low")    
+elif bmi < 18.5 and bmi > 10:
     st.text("Shortweight")
 elif bmi >= 18.5 and bmi < 25:
     st.text("Normal Weight")
