@@ -296,10 +296,13 @@ else:
     delta = userData()[1] - userData()[0]
         
 st.metric(
-        label="Risk of Stroke", 
-        value=str(round(pred*100, 1)) + " %", 
-        delta=str(round(delta, 2)) + " percentage points", 
-        help="The change in percentage points compared to your previous specification."
+    label="Risk of Stroke", 
+    value=str(round(pred*100, 1)) + " %", 
+    delta=str(round(delta, 2)) + " percentage points", 
+    help="""
+    This is the indication for the risk of stroke, given the patient data.
+    The change in percentage points compared to your previous indication is displayed smaller below.
+    """
 )
 
 #######Additional Information##################
