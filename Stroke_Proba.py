@@ -298,7 +298,7 @@ else:
 st.metric(
         label="Risk of Stroke", 
         value=str(round(pred*100, 1)) + " %", 
-        delta=str(round(delta, 2) + " percentage points"), 
+        delta=str(round(delta, 2)) + " percentage points", 
         help="The change in percentage points compared to your previous specification."
 )
 
