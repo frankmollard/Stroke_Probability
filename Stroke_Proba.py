@@ -282,15 +282,16 @@ pred = predict(data, dataC, contVars)
 
 data_load_state.text("Prediction done")
 
-#########Save User-data############
-userData = [0]
+#########Save User-data by caching############
+@st.cache(allow_output_mutation=True)
+def userData():
+    return [0]
+
 if len(userData) == 1:
-    userData.append(round(pred*100, 1))
-    st.write(len(userData))
+    userData().append(round(pred*100, 1))
 else:
-    userData.pop(0)
-    userData.append(round(pred*100, 1))
-    st.write(len(userData))
+    userData().pop(0)
+    userData().append(round(pred*100, 1))
         
 st.metric(label="Risk of Stroke", value=str(round(pred*100, 1)) + " %", delta=userData[-2])
 
