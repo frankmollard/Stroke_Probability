@@ -273,8 +273,8 @@ def predict(df, dfc, cv: list):
     pcb1 = cb1.predict(dfc, prediction_type='Probability')[:, 1]
     pcb2 = cb2.predict(dfc, prediction_type='Probability')[:, 1]
 
-    p = (psvm1 * 0.72 + prf1 * 0.03 + plogit1 * 0.04 + pcb1[0] * 0.11 + pnbc1 * 0.1) / 2 + \
-        (psvm2 * 0.15 + prf2 * 0.04 + plogit2 * 0.3 + pcb2[0] * 0.18 + pnbc2 * 0.33) / 2
+    p = (psvm1 * 0.8 + prf1 * 0.02 + plogit1 * 0.04 + pcb1[0] * 0.08 + pnbc1 * 0.06) / 2 + \
+        (psvm2 * 0.13 + prf2 * 0.03 + plogit2 * 0.33 + pcb2[0] * 0.16 + pnbc2 * 0.35) / 2
 
     return p
 
