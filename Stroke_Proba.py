@@ -261,10 +261,10 @@ def predict(df, dfc, cv: list):
     pnbc2 = nbc2.predict_proba(df[cv])[0][1]
 
     prf1 = rf1.predict_proba(
-        df[[i for i in df.columns if i not in ['work_type_Never_worked', 'work_type_children']]]
+        df[[i for i in df.columns if i not in ['work_type_Never_worked']]]
         )[0][1]
     prf2 = rf2.predict_proba(
-        df[[i for i in df.columns if i not in ['work_type_Never_worked', 'work_type_children']]]
+        df[[i for i in df.columns if i not in ['work_type_Never_worked']]]
         )[0][1]
 
     plogit1 = logit1.predict_proba(df)[0][1]
