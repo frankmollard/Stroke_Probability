@@ -360,7 +360,7 @@ def assesBMI(BMI, AGE):
 tab1.text(assesBMI(bmi, age))
         
 #####Data Visualization#########
-viz = dataC
+viz = dataC.copy()
 viz.rename(
     columns={
         "age": "Age",
