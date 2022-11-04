@@ -297,7 +297,7 @@ pred = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.5
 def contributions(preds: list):
     c = pd.DataFrame(
         data=preds,
-        index=["SVM", "RF", "Logit", "CB", "NBC"],
+        index=["Support Vector Machines", "Random Forest", "Logit", "CatBoost", "Naive Bayes Classifier"],
         columns=["Fold 1", "Fold 2"]
     )
     return c
@@ -400,11 +400,11 @@ pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 
 
 tab2.table(
     contributions([
-        [pred_svm_1, pred_svm_2],
-        [pred_rf_1, pred_rf_2],                
-        [pred_logit_1, pred_logit_2],               
-        [pred_cb_1, pred_cb_2],                
-        [pred_nbc_1, pred_nbc_2],   
+        [f"{round(pred_svm_1, 2)} p.p.", f"{round(pred_svm_2, 2)} p.p."],
+        [f"{round(pred_rf_1, 2)} p.p.", f"{round(pred_rf_2, 2)} p.p."],                
+        [f"{round(pred_logit_1, 2)} p.p.", f"{round(pred_logit_2, 2)} p.p."],               
+        [f"{round(pred_cb_1, 2)} p.p.", f"{round(pred_cb_2, 2)} p.p."],                
+        [f"{round(pred_nbc_1, 2)} p.p.", f"{round(pred_nbc_2, 2)} p.p."],   
     ])
 )
 
@@ -413,11 +413,8 @@ data_load_state2.text("Prediction done")
 tab2.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100, 1)) + " %", 
-    delta=str(round(delta(userData(), pred), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
-    The change in percentage points compared to your previous indication is displayed smaller below.
-    """,
-    delta_color ="inverse"
+    """
 )
                              
