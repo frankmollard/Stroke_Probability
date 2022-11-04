@@ -331,7 +331,7 @@ def assesBMI(BMI, AGE):
         inf = "Strong Obesity"
     elif BMI >= 40:
         inf = "Extreme Obesity"
-       return inf
+    return inf
 
 tab1.text(assesBMI(bmi, age))
 
