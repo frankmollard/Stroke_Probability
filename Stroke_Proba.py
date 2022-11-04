@@ -409,7 +409,7 @@ tab2.dataframe(
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).style.background_gradient(cmap="reds")
+    ]).style.background_gradient(cmap="Greens")
 )
 
 data_load_state2.text("Prediction done")
