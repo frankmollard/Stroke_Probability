@@ -400,12 +400,12 @@ pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 
 
 tab2.dataframe(
     contributions([
-        [round(pred_svm_1, 2), round(pred_svm_2, 2)],
-        [round(pred_rf_1, 2), round(pred_rf_2, 2)],                
-        [round(pred_logit_1, 2), round(pred_logit_2, 2)],               
-        [round(pred_cb_1, 2), round(pred_cb_2, 2)],                
-        [round(pred_nbc_1, 2), round(pred_nbc_2, 2)],   
-    ])
+        [pred_svm_1, pred_svm_2],
+        [pred_rf_1, pred_rf_2],                
+        [pred_logit_1, pred_logit_2],               
+        [pred_cb_1, pred_cb_2],                
+        [pred_nbc_1, pred_nbc_2],   
+    ]).style.format("{:.2%}")
 )
 
 data_load_state2.text("Prediction done")
