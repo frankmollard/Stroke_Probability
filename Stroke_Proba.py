@@ -35,7 +35,8 @@ tab1.text(
 tab2.title('Stroke Prediction')
 tab2.text(
         """
-        At this point, a model is used which has shown very good results in the validations. 
+        At this point, a model is used which has shown 
+        very good results in the validations. 
         """
         )
 
