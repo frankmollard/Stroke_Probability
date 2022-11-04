@@ -405,7 +405,7 @@ tab2.dataframe(
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).style.format("{:.2}").style.highlight_max(axis=0)
+    ]).style.format("{:.2}")
 )
 
 data_load_state2.text("Prediction done")
