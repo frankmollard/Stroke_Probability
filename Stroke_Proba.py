@@ -1,4 +1,5 @@
 import streamlit as st
+import seaborn as sns
 
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
@@ -399,8 +400,7 @@ pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.1
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])
 
 
-def style_negative(v, props=''):
-    return props if v > 0.2 else None
+cm = sns.light_palette("green", as_cmap=True)
 
 tab2.dataframe(
     contributions([
@@ -409,7 +409,7 @@ tab2.dataframe(
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).style.applymap(style_negative, props='color:red;').applymap(lambda v: 'opacity: 0%;' if (v < 0.0001) and (v > -0.0001) else None)
+    ]).style.background_gradient(cmap="reds")
 )
 
 data_load_state2.text("Prediction done")
