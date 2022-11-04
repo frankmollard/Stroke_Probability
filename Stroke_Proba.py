@@ -399,8 +399,8 @@ pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.1
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]) * 100
 
 def formater(styler):
-    styler.style.format("{:.2}")
-    styler.style.background_gradient(cmap="Reds")
+    styler.format("{:.2}")
+    styler.background_gradient(cmap="Reds")
     return styler
 
 cont = contributions(
