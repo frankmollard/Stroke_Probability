@@ -1,4 +1,5 @@
 streamlit
+seaborn
 sklearn
 catboost
 joblib
