@@ -20,8 +20,10 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
-st.title('Stroke Prediction')
-st.text(
+tab1, tab2 = st.tabs(["Stroke Risk", "Alternative Model"])
+
+tab1.title('Stroke Prediction')
+tab1.text(
         """
         This application uses various AI-algorithms
         to indicate the risk of a stroke. If a stroke is suspected, 
@@ -32,7 +34,7 @@ st.text(
 
 URL="https://strokemodels.s3.eu-central-1.amazonaws.com"
 
-data_load_state = st.text('Loading models...')
+data_load_state = tab1.text('Loading models...')
 
 #Load Sklearn models
 @st.cache(allow_output_mutation=True)
@@ -252,7 +254,7 @@ dataC = pd.DataFrame(
 contVars = ["age", "avg_glucose_level", "bmi"]
 
 @st.cache
-def predict(df, dfc, cv: list):
+def predict(df, dfc, cv: list, weights: list):
         
     psvm1 = svm1.predict_proba(df[cv])[0][1]
     psvm2 = svm2.predict_proba(df[cv])[0][1]
@@ -273,12 +275,12 @@ def predict(df, dfc, cv: list):
     pcb1 = cb1.predict(dfc, prediction_type='Probability')[:, 1]
     pcb2 = cb2.predict(dfc, prediction_type='Probability')[:, 1]
 
-    p = (psvm1 * 0.64 + prf1 * 0.01 + plogit1 * 0.12 + pcb1[0] * 0.06 + pnbc1 * 0.17) / 2 + \
-        (psvm2 * 0.06 + prf2 * 0.08 + plogit2 * 0.57 + pcb2[0] * 0.25 + pnbc2 * 0.04) / 2
+    p = (psvm1 * weights[0] + prf1 * weights[2] + plogit1 * weights[4] + pcb1[0] * weights[6] + pnbc1 * weights[7]) / 2 + \
+        (psvm2 * weights[1] + prf2 * weights[3] + plogit2 * weights[5] + pcb2[0] * weights[7] + pnbc2 * weights[8]) / 2
 
     return p
 
-pred = predict(data, dataC, contVars)
+pred = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
 
 data_load_state.text("Prediction done")
 
@@ -295,7 +297,7 @@ else:
     userData().append(round(pred*100, 1))
     delta = userData()[1] - userData()[0]
         
-st.metric(
+tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100, 1)) + " %", 
     delta=str(round(delta, 2)) + " percentage points", 
@@ -308,27 +310,31 @@ st.metric(
 
 #######Additional Information##################
 
-if bmi > 45 and age > 75:
-    st.text(
-    """
-    Note: Information is unreliable.
-    BMI > 45 and age > 75.
-    """
-    )
-elif bmi <= 10:
-    st.text("BMI too low")    
-elif bmi < 18.5 and bmi > 10:
-    st.text("Shortweight")
-elif bmi >= 18.5 and bmi < 25:
-    st.text("Normal Weight")
-elif bmi >= 25 and bmi < 30:
-    st.text("Overweight")
-elif bmi >= 30 and bmi < 35:
-    st.text("Moderate Obesity")
-elif bmi >= 35 and bmi < 40:
-    st.text("Strong Obesity")
-elif bmi >= 40:
-    st.text("Extreme Obesity")
+
+def assesBMI(BMI, AGE):
+    if BMI > 45 and AGE > 75:
+        inf = """
+        Note: Information is unreliable.
+        BMI > 45 and age > 75.
+        """
+    elif BMI <= 10:
+        inf = "BMI too low"
+    elif BMI < 18.5 and BMI > 10:
+        inf = "Shortweight"
+    elif BMI >= 18.5 and BMI < 25:
+        inf = "Normal Weight")
+    elif BMI >= 25 and BMI < 30:
+        inf = "Overweight"
+    elif BMI >= 30 and BMI < 35:
+        inf = "Moderate Obesity"
+    elif BMI >= 35 and BMI < 40:
+        inf = "Strong Obesity"
+    elif BMI >= 40:
+        inf = "Extreme Obesity"
+       return inf
+
+tab1.text(assesBMI(bmi, age))
+
         
 #####Data Visualization#########
 viz = dataC
@@ -356,4 +362,8 @@ viz["Smoking Status"] = smoking
 
 viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 
-st.table(data=viz.T)
+tab1.table(data=viz.T)
+
+##########TAB 2#################
+
+
