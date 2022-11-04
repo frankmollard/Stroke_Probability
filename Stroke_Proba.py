@@ -414,7 +414,7 @@ cont = contributions(
 )
 
 tab2.dataframe(
-    cont.pipe(formater)
+    cont.style.pipe(formater)
 )
 
 data_load_state2.text("Prediction done")
