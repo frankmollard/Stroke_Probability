@@ -387,26 +387,26 @@ viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 tab1.table(data=viz.T)
 
 #############tab 2 table######################
-pred_svm_1 = predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])
-pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0])
-pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])
-pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0])
-pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])
-pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0])
-pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])
-pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0])
-pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])
+pred_svm_1 = predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]) * 100
+pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]) * 100
+pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0]) * 100
+pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]) * 100
+pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0]) * 100
+pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]) * 100
+pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]) * 100
 
 
 tab2.dataframe(
     contributions([
-        [round(pred_svm_1, 2), pred_svm_2],
+        [pred_svm_1, pred_svm_2],
         [pred_rf_1, pred_rf_2],                
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).round(2).style.background_gradient(cmap="Reds")
+    ]).style.background_gradient(cmap="Reds").style.format("{:.2}")
 )
 
 data_load_state2.text("Prediction done")
