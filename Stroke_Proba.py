@@ -291,8 +291,8 @@ def predict(df, dfc, cv: list, weights: list):
     return p
 
 #Predictions of two Ensembles
-pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
-pred2 = predict(data, dataC, contVars, weights=[0.25, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0, 0])
+pred1 = predict(data, dataC, contVars, weights=[0.25, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0, 0])
+pred2 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
 
 data_load_state1.text("Prediction done")
 data_load_state2.text("Prediction done")
