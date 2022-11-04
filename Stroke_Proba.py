@@ -32,9 +32,17 @@ tab1.text(
         """
         )
 
+tab2.title('Stroke Prediction')
+tab2.text(
+        """
+        At this point, a model is used which has shown very good results in the validations. 
+        """
+        )
+
 URL="https://strokemodels.s3.eu-central-1.amazonaws.com"
 
-data_load_state = tab1.text('Loading models...')
+data_load_state1 = tab1.text('Loading models...')
+data_load_state2 = tab2.text('Loading models...')
 
 #Load Sklearn models
 @st.cache(allow_output_mutation=True)
@@ -83,8 +91,8 @@ cb1, cb2 = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
-data_load_state.text("AI-Models Loaded")
-
+data_load_state1.text("AI-Models Loaded")
+data_load_state2.text("AI-Models Loaded")
 ###############SIDEBAR START################
 
 st.sidebar.title("Patient Data")
@@ -196,7 +204,8 @@ else:
 st.sidebar.text(" ")
 ###############SIDEBAR END##################
     
-data_load_state.text("Predicting...")
+data_load_state1.text("Predicting...")
+data_load_state2.text("Predicting...")
 
 data = pd.DataFrame(
     data=[
@@ -280,27 +289,44 @@ def predict(df, dfc, cv: list, weights: list):
 
     return p
 
-pred = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+#Predictions of two Ensembles
+pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+pred2 = predict(data, dataC, contVars, weights=[0.25, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0, 0])
 
-data_load_state.text("Prediction done")
+data_load_state1.text("Prediction done")
+data_load_state2.text("Prediction done")
 
 #########Save User-data by caching############
 @st.cache(allow_output_mutation=True)
 def userData():
     return []
 
-if len(userData()) == 0:
-    userData().extend([0, round(pred*100, 1)])
-    delta = 0
-else:
-    userData().pop(0)
-    userData().append(round(pred*100, 1))
-    delta = userData()[1] - userData()[0]
+@st.cache(allow_output_mutation=True)
+def delta(l, p):
+    if len(l) == 0:
+        l.extend([0, round(p*100, 1)])
+        d = 0
+    else:
+        l.pop(0)
+        l.append(round(p*100, 1))
+        d = l[1] - l[0]
+    return d
         
 tab1.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*100, 1)) + " %", 
-    delta=str(round(delta, 2)) + " percentage points", 
+    value=str(round(pred1*100, 1)) + " %", 
+    delta=str(round(delta(userData(), pred1), 2)) + " percentage points", 
+    help="""
+    This is the indication for the risk of stroke, given the patient data.
+    The change in percentage points compared to your previous indication is displayed smaller below.
+    """,
+    delta_color ="inverse"
+)
+
+tab2.metric(
+    label="Risk of Stroke", 
+    value=str(round(pred2*100, 1)) + " %", 
+    delta=str(round(delta(userData(), pred2), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
@@ -334,7 +360,7 @@ def assesBMI(BMI, AGE):
     return inf
 
 tab1.text(assesBMI(bmi, age))
-
+tab2.text(assesBMI(bmi, age))
         
 #####Data Visualization#########
 viz = dataC
@@ -363,7 +389,4 @@ viz["Smoking Status"] = smoking
 viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 
 tab1.table(data=viz.T)
-
-##########TAB 2#################
-
-
+tab2.table(data=viz.T)
