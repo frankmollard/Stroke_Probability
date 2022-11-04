@@ -35,8 +35,8 @@ tab1.text(
 tab2.title('Contribution by Model')
 tab2.text(
         """
-        At this point, you can check the risk contributions 
-        for the individual models.
+        At this point, you can check the risk contributions in
+        percentage points for the individual models.
         """
         )
 
@@ -298,7 +298,7 @@ def contributions(preds: list):
     c = pd.DataFrame(
         data=preds,
         index=["Support Vector Machines", "Random Forest", "Logit", "CatBoost", "Naive Bayes Classifier"],
-        columns=["Fold 1", "Fold 2"]
+        columns=["Fold 1 in p.p.", "Fold 2 in p.p."]
     )
     return c
 
@@ -398,13 +398,13 @@ pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0
 pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0])
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])
 
-tab2.table(
+tab2.dataframe(
     contributions([
-        [f"{round(pred_svm_1, 2)} p.p.", f"{round(pred_svm_2, 2)} p.p."],
-        [f"{round(pred_rf_1, 2)} p.p.", f"{round(pred_rf_2, 2)} p.p."],                
-        [f"{round(pred_logit_1, 2)} p.p.", f"{round(pred_logit_2, 2)} p.p."],               
-        [f"{round(pred_cb_1, 2)} p.p.", f"{round(pred_cb_2, 2)} p.p."],                
-        [f"{round(pred_nbc_1, 2)} p.p.", f"{round(pred_nbc_2, 2)} p.p."],   
+        [round(pred_svm_1, 2), round(pred_svm_2, 2)],
+        [round(pred_rf_1, 2), round(pred_rf_2, 2)],                
+        [round(pred_logit_1, 2), round(pred_logit_2, 2)],               
+        [round(pred_cb_1, 2), round(pred_cb_2, 2)],                
+        [round(pred_nbc_1, 2), round(pred_nbc_2, 2)],   
     ])
 )
 
