@@ -295,11 +295,11 @@ pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.
 
 contributions = pd.DataFrame(
     data=[
-        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0]],
-        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0]],               
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0]],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]],   
+        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])],
+        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])],               
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])],   
     ],
     index=["SVM", "RF", "Logit", "CB", "NBC"],
     columns=["Fold 1", "Fold 2"]
