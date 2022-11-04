@@ -293,17 +293,14 @@ def predict(df, dfc, cv: list, weights: list):
 #Predictions of two Ensembles
 pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
 
-contributions = pd.DataFrame(
-    data=[
-        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])],
-        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])],               
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])],   
-    ],
-    index=["SVM", "RF", "Logit", "CB", "NBC"],
-    columns=["Fold 1", "Fold 2"]
-)
+@st.cache(allow_output_mutation=True)
+def contributions(preds: list):
+    c = pd.DataFrame(
+        data=preds,
+        index=["SVM", "RF", "Logit", "CB", "NBC"],
+        columns=["Fold 1", "Fold 2"]
+    )
+    return c
 
 data_load_state1.text("Prediction done")
 data_load_state2.text("Prediction done")
@@ -337,7 +334,7 @@ tab1.metric(
 
 #######Additional Information##################
 
-
+@st.cache(allow_output_mutation=True)
 def assesBMI(BMI, AGE):
     if BMI > 45 and AGE > 75:
         inf = """
@@ -391,5 +388,24 @@ viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 tab1.table(data=viz.T)
 
 #############tab 2 table######################
-tab2.table(contributions)
+tab2.table(
+    contributions([
+        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])],
+        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])],               
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])],   
+    ])
+)
+
+tab2.metric(
+    label="Risk of Stroke", 
+    value=str(round(pred1*100, 1)) + " %", 
+    delta=str(round(delta(userData(), pred1), 2)) + " percentage points", 
+    help="""
+    This is the indication for the risk of stroke, given the patient data.
+    The change in percentage points compared to your previous indication is displayed smaller below.
+    """,
+    delta_color ="inverse"
+)
                              
