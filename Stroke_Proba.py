@@ -303,7 +303,6 @@ def contributions(preds: list):
     return c
 
 data_load_state1.text("Prediction done")
-data_load_state2.text("Prediction done")
 
 #########Save User-data by caching############
 @st.cache(allow_output_mutation=True)
@@ -408,6 +407,8 @@ tab2.table(
         [pred_nbc_1, pred_nbc_2],   
     ])
 )
+
+data_load_state2.text("Prediction done")
 
 tab2.metric(
     label="Risk of Stroke", 
