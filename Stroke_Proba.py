@@ -291,7 +291,7 @@ def predict(df, dfc, cv: list, weights: list):
     return p
 
 #Predictions of two Ensembles
-pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+pred = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
 
 @st.cache(allow_output_mutation=True)
 def contributions(preds: list):
@@ -323,8 +323,8 @@ def delta(l, p):
         
 tab1.metric(
     label="Risk of Stroke", 
-    value=str(round(pred1*100, 1)) + " %", 
-    delta=str(round(delta(userData(), pred1), 2)) + " percentage points", 
+    value=str(round(pred*100, 1)) + " %", 
+    delta=str(round(delta(userData(), pred), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
@@ -388,20 +388,31 @@ viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 tab1.table(data=viz.T)
 
 #############tab 2 table######################
+pred_svm_1 = predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])
+pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0])
+pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])
+pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0])
+pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])
+pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0])
+pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])
+pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0])
+pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])
+
 tab2.table(
     contributions([
-        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0])],
-        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0])],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0])],               
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0])],                
-        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]), predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04])],   
+        [pred_svm_1, pred_svm_2],
+        [pred_rf_1, pred_rf_2],                
+        [pred_logit_1, pred_logit_2],               
+        [pred_cb_1, pred_cb_2],                
+        [pred_nbc_1, pred_nbc_2],   
     ])
 )
 
 tab2.metric(
     label="Risk of Stroke", 
-    value=str(round(pred1*100, 1)) + " %", 
-    delta=str(round(delta(userData(), pred1), 2)) + " percentage points", 
+    value=str(round(pred*100, 1)) + " %", 
+    delta=str(round(delta(userData(), pred), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
