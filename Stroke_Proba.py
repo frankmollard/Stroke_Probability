@@ -322,7 +322,7 @@ def assesBMI(BMI, AGE):
     elif BMI < 18.5 and BMI > 10:
         inf = "Shortweight"
     elif BMI >= 18.5 and BMI < 25:
-        inf = "Normal Weight")
+        inf = "Normal Weight"
     elif BMI >= 25 and BMI < 30:
         inf = "Overweight"
     elif BMI >= 30 and BMI < 35:
