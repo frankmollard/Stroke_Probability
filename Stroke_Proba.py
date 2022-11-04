@@ -406,7 +406,7 @@ tab2.dataframe(
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).style.bar(color='#d65f5f')
+    ]).style.bar(subset=['Fold 1', 'Fold 2'], color='#d65f5f')
 )
 
 data_load_state2.text("Prediction done")
