@@ -398,6 +398,11 @@ pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0
 pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]) * 100
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]) * 100
 
+def formater(styler):
+    styler.style.format("{:.2}")
+    styler.style.background_gradient(cmap="Reds")
+    return styler
+
 cont = contributions(
     [
     [pred_svm_1, pred_svm_2],
@@ -406,10 +411,10 @@ cont = contributions(
     [pred_cb_1, pred_cb_2],                
     [pred_nbc_1, pred_nbc_2],   
     ]
-).style.background_gradient(cmap="Reds")
+)
 
 tab2.dataframe(
-    cont.style.format("{:.2}")
+    cont.pipe(formater)
 )
 
 data_load_state2.text("Prediction done")
