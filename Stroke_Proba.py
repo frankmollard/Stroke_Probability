@@ -20,7 +20,7 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
-tab1, tab2 = st.tabs(["Stroke Risk", "Alternative Model"])
+tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
 tab1.title('Stroke Prediction')
 tab1.text(
@@ -32,11 +32,11 @@ tab1.text(
         """
         )
 
-tab2.title('Stroke Prediction')
+tab2.title('Contribution by Model')
 tab2.text(
         """
-        At this point, a model is used which has shown 
-        very good results in the validations. 
+        At this point, you can check the risk contributions 
+        for the individual models.
         """
         )
 
@@ -285,14 +285,25 @@ def predict(df, dfc, cv: list, weights: list):
     pcb1 = cb1.predict(dfc, prediction_type='Probability')[:, 1]
     pcb2 = cb2.predict(dfc, prediction_type='Probability')[:, 1]
 
-    p = (psvm1 * weights[0] + prf1 * weights[2] + plogit1 * weights[4] + pcb1[0] * weights[6] + pnbc1 * weights[7]) / 2 + \
-        (psvm2 * weights[1] + prf2 * weights[3] + plogit2 * weights[5] + pcb2[0] * weights[7] + pnbc2 * weights[8]) / 2
+    p = (psvm1 * weights[0] + prf1 * weights[2] + plogit1 * weights[4] + pcb1[0] * weights[6] + pnbc1 * weights[8]) / 2 + \
+        (psvm2 * weights[1] + prf2 * weights[3] + plogit2 * weights[5] + pcb2[0] * weights[7] + pnbc2 * weights[9]) / 2
 
     return p
 
 #Predictions of two Ensembles
-pred1 = predict(data, dataC, contVars, weights=[0.25, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0, 0])
-pred2 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+pred1 = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+
+contributions = pd.DataFrame(
+    data=[
+        [predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0]],
+        [predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0]],               
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0]],                
+        [predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0], predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]],   
+    ],
+    index=["SVM", "RF", "Logit", "CB", "NBC"],
+    columns=["Fold 1", "Fold 2"]
+)
 
 data_load_state1.text("Prediction done")
 data_load_state2.text("Prediction done")
@@ -317,17 +328,6 @@ tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred1*100, 1)) + " %", 
     delta=str(round(delta(userData(), pred1), 2)) + " percentage points", 
-    help="""
-    This is the indication for the risk of stroke, given the patient data.
-    The change in percentage points compared to your previous indication is displayed smaller below.
-    """,
-    delta_color ="inverse"
-)
-
-tab2.metric(
-    label="Risk of Stroke", 
-    value=str(round(pred2*100, 1)) + " %", 
-    delta=str(round(delta(userData(), pred2), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
@@ -361,7 +361,6 @@ def assesBMI(BMI, AGE):
     return inf
 
 tab1.text(assesBMI(bmi, age))
-tab2.text(assesBMI(bmi, age))
         
 #####Data Visualization#########
 viz = dataC
@@ -390,4 +389,7 @@ viz["Smoking Status"] = smoking
 viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 
 tab1.table(data=viz.T)
-tab2.table(data=viz.T)
+
+#############tab 2 table######################
+tab2.table(contributions)
+                             
