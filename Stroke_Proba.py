@@ -400,7 +400,7 @@ pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 
 
 
 def style_negative(v, props=''):
-    return props if v < 0 else None
+    return props if v > 0.5 else None
 
 tab2.dataframe(
     contributions([
@@ -409,7 +409,7 @@ tab2.dataframe(
         [pred_logit_1, pred_logit_2],               
         [pred_cb_1, pred_cb_2],                
         [pred_nbc_1, pred_nbc_2],   
-    ]).style.applymap(style_negative, props='color:red;').applymap(lambda v: 'opacity: 20%;' if (v < 0.3) and (v > -0.3) else None)
+    ]).style.applymap(style_negative, props='color:red;').applymap(lambda v: 'opacity: 20%;' if (v < 0.0001) and (v > -0.0001) else None)
 )
 
 data_load_state2.text("Prediction done")
