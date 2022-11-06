@@ -291,7 +291,7 @@ def predict(df, dfc, cv: list, weights: list):
     return p
 
 #Predictions of two Ensembles
-pred = predict(data, dataC, contVars, weights=[0.64, 0.06, 0.01, 0.08, 0.12, 0.57, 0.06, 0.25, 0.17, 0.04])
+pred = predict(data, dataC, contVars, weights=[0.59, 0.12, 0.02, 0.09, 0.13, 0.49, 0.07, 0.25, 0.19, 0.05])
 
 @st.cache(allow_output_mutation=True)
 def contributions(preds: list):
@@ -387,16 +387,16 @@ viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 tab1.table(data=viz.T)
 
 #############tab 2 table######################
-pred_svm_1 = predict(data, dataC, contVars, weights=[0.64, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
-pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
-pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0]) * 100
-pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]) * 100
-pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.12, 0, 0, 0, 0, 0]) * 100
-pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.57, 0, 0, 0, 0]) * 100
-pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0]) * 100
+pred_svm_1 = predict(data, dataC, contVars, weights=[0.59, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.12, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.09, 0, 0, 0, 0, 0, 0]) * 100
+pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.13, 0, 0, 0, 0, 0]) * 100
+pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.49, 0, 0, 0, 0]) * 100
+pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.07, 0, 0, 0]) * 100
 pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0]) * 100
-pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.17, 0]) * 100
-pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04]) * 100
+pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.19, 0]) * 100
+pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05]) * 100
 
 def formater(styler):
     styler.format("{:.2f}")
