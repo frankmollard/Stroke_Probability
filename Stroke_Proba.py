@@ -99,8 +99,8 @@ data_load_state2.text("AI-Models Loaded")
 st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 40)  
-bmi = st.sidebar.slider('BMI', 5, 100, 20) 
-agl = st.sidebar.slider('Average Glucose Level', 0, 400, 100) 
+bmi = st.sidebar.slider('BMI', 5, 30, 20) 
+agl = st.sidebar.slider('Average Glucose Level', 50, 400, 100) 
 
 smoking = st.sidebar.selectbox(
     'Smoking Status', ["Never Smoked", "Formerly Smoked", "Smokes", "Unknown"]
