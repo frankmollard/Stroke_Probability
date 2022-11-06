@@ -99,7 +99,7 @@ data_load_state2.text("AI-Models Loaded")
 st.sidebar.title("Patient Data")
 
 age = st.sidebar.slider('Age', 0, 100, 40)  
-bmi = st.sidebar.slider('BMI', 5, 30, 20) 
+bmi = st.sidebar.slider('BMI', 5, 45, 20) 
 agl = st.sidebar.slider('Average Glucose Level', 50, 400, 100) 
 
 smoking = st.sidebar.selectbox(
@@ -127,7 +127,7 @@ else:
     smoking_status = "Unknown"
     
 heart = st.sidebar.selectbox(
-    'Heart Disease', ["Yes", "No"]
+    'Heart Disease', ["No", "Yes"]
     )    
 if heart == "Yes":
     heart_disease = 1
@@ -195,7 +195,7 @@ else:
     Residence_type_Urban = 0
     
 hyTen = st.sidebar.selectbox(
-    'Hypertension', ["Yes", "No"]
+    'Hypertension', ["No", "Yes"]
     )    
 if hyTen == "Yes":
     hypertension = 1
