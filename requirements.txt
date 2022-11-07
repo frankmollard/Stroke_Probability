@@ -1,6 +1,6 @@
 streamlit
-seaborn
 sklearn
+seaborn
 catboost
 joblib
 pandas
