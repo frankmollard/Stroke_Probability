@@ -109,7 +109,7 @@ if smoking == "Never Smoked":
     smoking_status_formerly_smoked = 0
     smoking_status_smokes = 0
     smoking_status_never_smoked = 1
-    smoking_status = "never nmoked"
+    smoking_status = "never smoked"
 elif smoking == "Formerly Smoked":
     smoking_status_formerly_smoked = 1
     smoking_status_smokes = 0
@@ -181,10 +181,8 @@ married = st.sidebar.selectbox(
     )    
 if married == "Yes":
     ever_married_Yes = 1
-    ever_married = True
 else:
     ever_married_Yes = 0
-    ever_married = False
     
 residence_type = st.sidebar.selectbox(
     'Residence Type', ["Urban", "Rural"]
@@ -367,10 +365,10 @@ viz.rename(
         "avg_glucose_level": "Average Glucose Level",
         "smoking_status": "Smoking Status",
         "heart_disease": "Heart Disease",
-        "gender": "Gender",
+        "gender_Male": "Gender",
         "work_type": "Work Type",
-         "ever_married": "Ever Married",
-        "Residence_type": "Residence Type",
+        "ever_married_Yes": "Ever Married",
+        "Residence_type_Urban": "Residence Type",
         "hypertension": "Hypertension",    
     }, 
     index={0: 'Data entered'}, 
@@ -381,8 +379,10 @@ viz["Heart Disease"] = heart
 viz["Ever Married"] = married
 viz["Work Type"] = work_type
 viz["Smoking Status"] = smoking
+viz["Residence Type"] = residence_type
+viz["Gender"] = gender
 
-viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
+#viz = viz.iloc[:, [1,8,7,9,3,0,5,4,6,2]]
 
 tab1.table(data=viz.T)
 
