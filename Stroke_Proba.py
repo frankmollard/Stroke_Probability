@@ -225,13 +225,13 @@ data = pd.DataFrame(
 
 dataC = pd.DataFrame(
     data=[
-        [gender], [age], [hypertension], [heart_disease], [ever_married], 
-        [workType], [residence_type], [agl], 
-        [bmi], [smoking_status]
+        [age], [hypertension], [heart_disease], [workType], 
+        [agl], [bmi], [smoking_status],
+        [gender_Male], [ever_married_Yes], [Residence_type_Urban]
         ], 
-    index=['gender', 'age', 'hypertension', 'heart_disease', 'ever_married',
-       'work_type', 'Residence_type', 'avg_glucose_level',
-       'bmi', 'smoking_status']
+    index=['age', 'hypertension', 'heart_disease', 'work_type',
+       'avg_glucose_level', 'bmi', 'smoking_status',
+       'gender_Male', 'ever_married_Yes', 'Residence_type_Urban']
     ).T
 ###TEST#############
 #data = pd.DataFrame(
@@ -291,7 +291,7 @@ def predict(df, dfc, cv: list, weights: list):
     return p
 
 #Predictions of two Ensembles
-pred = predict(data, dataC, contVars, weights=[0.59, 0.12, 0.02, 0.09, 0.13, 0.49, 0.07, 0.25, 0.19, 0.05])
+pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.50, 0.07, 0.26, 0.19, 0.05])
 
 @st.cache(allow_output_mutation=True)
 def contributions(preds: list):
@@ -388,13 +388,13 @@ tab1.table(data=viz.T)
 
 #############tab 2 table######################
 pred_svm_1 = predict(data, dataC, contVars, weights=[0.59, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
-pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.12, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
+pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.11, 0, 0, 0, 0, 0, 0, 0, 0]) * 100
 pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0]) * 100
-pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.09, 0, 0, 0, 0, 0, 0]) * 100
+pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]) * 100
 pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.13, 0, 0, 0, 0, 0]) * 100
-pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.49, 0, 0, 0, 0]) * 100
+pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.50, 0, 0, 0, 0]) * 100
 pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.07, 0, 0, 0]) * 100
-pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0]) * 100
+pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.26, 0, 0]) * 100
 pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.19, 0]) * 100
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05]) * 100
 
