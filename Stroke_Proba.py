@@ -326,19 +326,19 @@ def assesBMI(BMI, AGE):
         BMI > 45 and age > 75.
         """
     elif BMI <= 10:
-        inf = "BMI too low"
+        inf = "BMI level:\nBMI too low"
     elif BMI < 18.5 and BMI > 10:
-        inf = "Shortweight"
+        inf = "BMI level:\nShortweight"
     elif BMI >= 18.5 and BMI < 25:
-        inf = "Normal Weight"
+        inf = "BMI level:\nNormal Weight"
     elif BMI >= 25 and BMI < 30:
-        inf = "Overweight"
+        inf = "BMI level:\nOverweight"
     elif BMI >= 30 and BMI < 35:
-        inf = "Moderate Obesity"
+        inf = "BMI level:\nModerate Obesity"
     elif BMI >= 35 and BMI < 40:
-        inf = "Strong Obesity"
+        inf = "BMI level:\nStrong Obesity"
     elif BMI >= 40:
-        inf = "Extreme Obesity"
+        inf = "BMI level:\nExtreme Obesity"
     return inf
 
 tab1.text(assesBMI(bmi, age))
