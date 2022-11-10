@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import GradientBoostingRegressor as GBR#new
+from sklearn.ensemble import GradientBoostingRegressor as GBR
 from catboost import CatBoostClassifier
 
 import joblib
@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache(allow_output_mutation=True)
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:#new
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
@@ -57,9 +57,9 @@ def loadAllModels(url):
             )
 
         
-    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]#new
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)#new
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache(allow_output_mutation=True)
@@ -229,34 +229,8 @@ dataC = pd.DataFrame(
        'avg_glucose_level', 'bmi', 'smoking_status',
        'gender_Male', 'ever_married_Yes', 'Residence_type_Urban']
     ).T
-###TEST#############
-#data = pd.DataFrame(
-#    data=[
-#        [38], [1], [1], [100], [30], 
-#        [1], [0], [0], 
-#        [0], [1], [1], 
-#        [1], [1], 
-#        [0], [0]
-#        ], 
-#    index=['age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi',
-#       'gender_Male', 'work_type_Never_worked', 'work_type_Private',
-#       'work_type_Self-employed', 'work_type_children', 'ever_married_Yes',
-#       'Residence_type_Urban', 'smoking_status_formerly smoked',
-#       'smoking_status_never smoked', 'smoking_status_smokes']
-#    ).T
 
-#dataC = pd.DataFrame(
-#    data=[
-#        [1], [38], [1], [1], [True], 
-#        ["children"], ["Rural"], [100], 
-#        [30], ["formerly smoked"]
-#        ], 
-#    index=['gender', 'age', 'hypertension', 'heart_disease', 'ever_married',
-#       'work_type', 'Residence_type', 'avg_glucose_level',
-#       'bmi', 'smoking_status']
-#    ).T
-###TEST#############
-
+#Define list of Continous Features
 contVars = ["age", "avg_glucose_level", "bmi"]
 
 #Define Ensemble Function
@@ -290,13 +264,13 @@ def predict(df, dfc, cv: list, weights: list):
 #Predictions of two Fold Ensembles
 pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.50, 0.07, 0.26, 0.19, 0.05])
 
-#Error Prediction #new
+#Error Prediction 
 @st.cache
 def errPred(df):
     error = errGBR.predict(df)[0]
     return error
 
-uncertainty = errPred(data)#new
+uncertainty = errPred(data)
 
 #Contributions to the Prediction by Model
 @st.cache(allow_output_mutation=True)
@@ -326,7 +300,7 @@ def delta(l, p):
         d = l[1] - l[0]
     return d
 
-#Show metrics
+#Show metrics#######################
 tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100, 1)) + " %", 
@@ -340,7 +314,7 @@ tab1.metric(
 
 tab1.text("Confidence in the risk assessment:\n" + \
           str(round((1-uncertainty)*100, 1)) + " %."
-)#new
+)
 
 #######Additional Information##################
 
