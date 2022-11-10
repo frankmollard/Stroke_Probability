@@ -338,8 +338,8 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-tab1.text("Confidence of the Prediction\n\n" + \
-          str(round(uncertainty*100, 1)) + "p.p."
+tab1.text("Preciseness of the risk assessment:\n" + \
+          str(round((1-uncertainty)*100, 1)) + " %."
 )#new
 
 #######Additional Information##################
