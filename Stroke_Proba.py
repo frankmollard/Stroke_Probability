@@ -325,7 +325,8 @@ def delta(l, p):
         l.append(round(p*100, 1))
         d = l[1] - l[0]
     return d
-        
+
+#Show metrics
 tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100, 1)) + " %", 
@@ -337,9 +338,8 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-tab1.metric(
-    label="Confidence", 
-    value=str(round(uncertainty*100, 1))
+tab1.text("Confidence of the Prediction\n\n" + \
+          str(round(uncertainty*100, 1)) + "p.p."
 )#new
 
 #######Additional Information##################
