@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-
+from sklearn.ensemble import GradientBoostingRegressor as GBR#new
 from catboost import CatBoostClassifier
 
 import joblib
@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache(allow_output_mutation=True)
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:#new
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
@@ -57,13 +57,11 @@ def loadAllModels(url):
             )
 
         
-    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7]
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]#new
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2 = loadAllModels(URL)
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)#new
 
 #Load CatBoost
-
-
 @st.cache(allow_output_mutation=True)
 def loadCatBoost():
     
@@ -261,6 +259,7 @@ dataC = pd.DataFrame(
 
 contVars = ["age", "avg_glucose_level", "bmi"]
 
+#Define Ensemble Function
 @st.cache
 def predict(df, dfc, cv: list, weights: list):
         
@@ -288,9 +287,18 @@ def predict(df, dfc, cv: list, weights: list):
 
     return p
 
-#Predictions of two Ensembles
+#Predictions of two Fold Ensembles
 pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.50, 0.07, 0.26, 0.19, 0.05])
 
+#Error Prediction #new
+@st.cache
+def errPred(df):
+    error = errGBR.predict(df)[0][1]
+    return error
+
+uncertainty = errPred(data)#new
+
+#Contributions to the Prediction by Model
 @st.cache(allow_output_mutation=True)
 def contributions(preds: list):
     c = pd.DataFrame(
@@ -328,6 +336,11 @@ tab1.metric(
     """,
     delta_color ="inverse"
 )
+
+tab1.metric(
+    label="Confidence", 
+    value=str(round(uncertainty*100, 1))
+)#new
 
 #######Additional Information##################
 
