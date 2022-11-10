@@ -293,7 +293,7 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction #new
 @st.cache
 def errPred(df):
-    error = errGBR.predict(df)[0][1]
+    error = errGBR.predict(df)[0]
     return error
 
 uncertainty = errPred(data)#new
