@@ -303,7 +303,7 @@ def delta(l, p):
 #Show metrics#######################
 tab1.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*25, 1)) + " %", 
+    value=str(round(pred*100/4, 1)) + " %", 
     delta=str(round(delta(userData(), pred), 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
@@ -408,7 +408,7 @@ data_load_state2.text("Prediction done")
 
 tab2.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*25, 1)) + " %", 
+    value=str(round(pred*100/4, 1)) + " %", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     """
