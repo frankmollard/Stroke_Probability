@@ -270,7 +270,7 @@ def errPred(df):
     error = errGBR.predict(df)[0]
     return error
 
-uncertainty = errPred(data)
+uncertainty = no.where(errPred(data) < 0, 0, errPred(data))
 
 #Contributions to the Prediction by Model
 @st.cache(allow_output_mutation=True)
