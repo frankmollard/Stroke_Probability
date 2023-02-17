@@ -292,11 +292,11 @@ def userData():
 @st.cache(allow_output_mutation=True)
 def delta(l, p):
     if len(l) == 0:
-        l.extend([0, round(p*100, 1)])
+        l.extend([0, round(p*100/4, 1)])
         d = 0
     else:
         l.pop(0)
-        l.append(round(p*100, 1))
+        l.append(round(p*100/4, 1))
         d = l[1] - l[0]
     return d
 
