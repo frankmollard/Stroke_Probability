@@ -292,19 +292,26 @@ def userData():
 @st.cache(allow_output_mutation=True)
 def delta(l, p):
     if len(l) == 0:
-        l.extend([0, round(p*100/4, 1)])
+        l.extend([0, round(p*100, 1)])
         d = 0
     else:
         l.pop(0)
-        l.append(round(p*100/4, 1))
+        l.append(round(p*100, 1))
         d = l[1] - l[0]
     return d
+
+#Adjustment#########################
+"""
+The model is a good predictor, but not necessarily a good model for risk  assessment. 
+To obtain a good model for risk assessment, we use a linear transformation to obtain results that are comparable to recent studies.
+"""
+adjst=8
 
 #Show metrics#######################
 tab1.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*100/4, 1)) + " %", 
-    delta=str(round(delta(userData(), pred), 2)) + " percentage points", 
+    value=str(round(pred*100/adjst, 1)) + " %", 
+    delta=str(round(delta(userData(), pred)/adjst, 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
@@ -374,16 +381,16 @@ viz["Gender"] = gender
 tab1.table(data=viz.T)
 
 #############tab 2 table######################
-pred_svm_1 = predict(data, dataC, contVars, weights=[0.59, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100/4
-pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.11, 0, 0, 0, 0, 0, 0, 0, 0]) * 100/4
-pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0]) * 100/4
-pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]) * 100/4
-pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.13, 0, 0, 0, 0, 0]) * 100/4
-pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.50, 0, 0, 0, 0]) * 100/4
-pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.07, 0, 0, 0]) * 100/4
-pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.26, 0, 0]) * 100/4
-pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.19, 0]) * 100/4
-pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05]) * 100/4
+pred_svm_1 = predict(data, dataC, contVars, weights=[0.59, 0, 0, 0, 0, 0, 0, 0, 0, 0]) * 100/adjst
+pred_svm_2 = predict(data, dataC, contVars, weights=[0, 0.11, 0, 0, 0, 0, 0, 0, 0, 0]) * 100/adjst
+pred_rf_1 = predict(data, dataC, contVars, weights=[0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0]) * 100/adjst
+pred_rf_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0.08, 0, 0, 0, 0, 0, 0]) * 100/adjst
+pred_logit_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0.13, 0, 0, 0, 0, 0]) * 100/adjst
+pred_logit_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0.50, 0, 0, 0, 0]) * 100/adjst
+pred_cb_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0.07, 0, 0, 0]) * 100/adjst
+pred_cb_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0.26, 0, 0]) * 100/adjst
+pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.19, 0]) * 100/adjst
+pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05]) * 100/adjst
 
 def formater(styler):
     styler.format("{:.2f}")
@@ -408,7 +415,7 @@ data_load_state2.text("Prediction done")
 
 tab2.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*100/4, 1)) + " %", 
+    value=str(round(pred*100/adjst, 1)) + " %", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     """
