@@ -301,11 +301,11 @@ def delta(l, p):
     return d
 
 #Adjustment#########################
-"""
-The model is a good predictor, but not necessarily a good model for risk  assessment. 
-To obtain a good model for risk assessment, we use a linear transformation to obtain results that are comparable to recent studies.
-cf: https://pdfs.semanticscholar.org/4808/e782ebbda2893b0ca7af81c16c18bb522dff.pdf?_gl=1*nsrffc*_ga*MTI4NTIxMzUxMC4xNjQxMDM4NTE5*_ga_H7P4ZT52H5*MTY3NjgxNTY4My4xLjAuMTY3NjgxNTY4NC4wLjAuMA..
-"""
+
+#The model is a good predictor, but not necessarily a good model for risk  assessment. 
+#To obtain a good model for risk assessment, we use a linear transformation to obtain results that are comparable to recent studies.
+#cf: https://pdfs.semanticscholar.org/4808/e782ebbda2893b0ca7af81c16c18bb522dff.pdf?_gl=1*nsrffc*_ga*MTI4NTIxMzUxMC4xNjQxMDM4NTE5*_ga_H7P4ZT52H5*MTY3NjgxNTY4My4xLjAuMTY3NjgxNTY4NC4wLjAuMA..
+
 adjst=5
 
 #Show metrics#######################
