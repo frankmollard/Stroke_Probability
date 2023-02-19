@@ -305,7 +305,7 @@ def delta(l, p):
 The model is a good predictor, but not necessarily a good model for risk  assessment. 
 To obtain a good model for risk assessment, we use a linear transformation to obtain results that are comparable to recent studies.
 """
-adjst=6
+adjst=5
 
 #Show metrics#######################
 tab1.metric(
