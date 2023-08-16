@@ -1,9 +1,9 @@
 streamlit
 scikit-learn==1.1.1
 seaborn
-catboost
+catboost==1.1
 joblib==1.1.0
-pandas
-numpy
+pandas==1.4.4
+numpy==1.21.5
 boto3
 botocore
