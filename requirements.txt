@@ -1,8 +1,8 @@
 streamlit
-scikit-learn
+scikit-learn==1.2.1
 seaborn
 catboost
-joblib
+joblib==1.2.0
 pandas
 numpy
 boto3
