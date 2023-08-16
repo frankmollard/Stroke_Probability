@@ -1,5 +1,5 @@
 streamlit
-scikit-learn==1.2.0
+scikit-learn==1.1.1
 seaborn
 catboost
 joblib==1.2.0
