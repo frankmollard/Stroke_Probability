@@ -273,7 +273,7 @@ def errPred(df):
 #uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
 
 #Contributions to the Prediction by Model
-@st.cache_resource()
+@st.cache_data()
 def contributions(preds: list):
     c = pd.DataFrame(
         data=preds,
@@ -299,6 +299,18 @@ def delta(l, p):
         l.append(round(p*100, 1))
         d = l[1] - l[0]
     return d
+
+#@st.cache_data()
+#def delta(n,o):
+#        d=n-o
+#        return d
+
+
+
+if 'old' not in st.session_state:
+    st.session_state.old = 0
+else:
+    st.session_state.old = pred - st.session_state.old
 
 #Adjustment#########################
 
