@@ -285,7 +285,7 @@ def contributions(preds: list):
 data_load_state1.text("Prediction done")
 
 #########Save User-data by caching############
-@st.cache_data()
+@st.cache_resource()
 def userData():
     return []
 
