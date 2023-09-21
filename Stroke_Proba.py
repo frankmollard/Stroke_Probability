@@ -271,7 +271,7 @@ def errPred(df):
     return error
 
 #uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
-tab1.text(help(errGBR))
+tab1.text(help(svm1))
 
 #Contributions to the Prediction by Model
 @st.cache_resource()
