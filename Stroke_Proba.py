@@ -265,12 +265,12 @@ def predict(df, dfc, cv: list, weights: list):
 pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.50, 0.07, 0.26, 0.19, 0.05])
 
 #Error Prediction 
-@st.cache_data
-def errPred(df):
-    error = errGBR.predict(df)[0]
-    return error
+#@st.cache_data
+#def errPred(df):
+#    error = errGBR.predict(df)[0]
+#    return error
 
-uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
+#uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
 
 #Contributions to the Prediction by Model
 @st.cache_resource()
@@ -321,9 +321,9 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-tab1.text("Confidence in the risk assessment:\n" + \
-          str(round((1-uncertainty)*100, 1)) + " %."
-)
+#tab1.text("Confidence in the risk assessment:\n" + \
+#          str(round((1-uncertainty)*100, 1)) + " %."
+#)
 
 #######Additional Information##################
 
