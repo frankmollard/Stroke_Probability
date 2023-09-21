@@ -46,7 +46,7 @@ data_load_state1 = tab1.text('Loading models...')
 data_load_state2 = tab2.text('Loading models...')
 
 #Load Sklearn models
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource()
 def loadAllModels(url):
     models=[]
     for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
@@ -62,7 +62,7 @@ def loadAllModels(url):
 svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource()
 def loadCatBoost():
     
     s3 = boto3.resource(
@@ -273,7 +273,7 @@ def errPred(df):
 uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
 
 #Contributions to the Prediction by Model
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource()
 def contributions(preds: list):
     c = pd.DataFrame(
         data=preds,
@@ -285,11 +285,11 @@ def contributions(preds: list):
 data_load_state1.text("Prediction done")
 
 #########Save User-data by caching############
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def userData():
     return []
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def delta(l, p):
     if len(l) == 0:
         l.extend([0, round(p*100, 1)])
@@ -327,7 +327,7 @@ tab1.text("Confidence in the risk assessment:\n" + \
 
 #######Additional Information##################
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def assesBMI(BMI, AGE):
     if BMI > 45 and AGE > 75:
         inf = """
