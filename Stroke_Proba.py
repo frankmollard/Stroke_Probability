@@ -313,7 +313,7 @@ adjst=5
 tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100/adjst, 1)) + " %", 
-    delta=str(round(delta([], pred)/adjst, 2)) + " percentage points", 
+    delta=str(round(delta(userData(), pred)/adjst, 2)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
