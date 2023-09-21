@@ -265,10 +265,10 @@ def predict(df, dfc, cv: list, weights: list):
 pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.50, 0.07, 0.26, 0.19, 0.05])
 
 #Error Prediction 
-#@st.cache_data
-#def errPred(df):
-#    error = errGBR.predict(df)[0]
-#    return error
+@st.cache_data
+def errPred(df):
+    error = errGBR.predict(df)[0]
+    return error
 
 #uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
 
