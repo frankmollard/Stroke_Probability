@@ -6,7 +6,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingRegressor as GBR
-from catboost import CatBoostClassifier
+from catboost import CatBoostClassifier, CatBoostRegressor 
 
 import joblib
 
@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache_resource()
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
@@ -57,9 +57,9 @@ def loadAllModels(url):
             )
 
         
-    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7]
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2 = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
@@ -74,7 +74,7 @@ def loadCatBoost():
 
     models=[]
 
-    for c in ["cb1", "cb2"]:
+    for c in ["cb1", "cb2", "errCBR"]:
         
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
@@ -84,9 +84,9 @@ def loadCatBoost():
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1]
+    return models[0], models[1], models[2]
     
-cb1, cb2 = loadCatBoost()
+cb1, cb2, errCBR = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
@@ -267,10 +267,10 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction 
 @st.cache_data
 def errPred(df):
-    error = errGBR.predict(df)[0]
+    error = errCBR.predict(df)[0]
     return error
 
-#uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
+uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
