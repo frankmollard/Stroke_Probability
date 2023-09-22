@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache_resource()
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errRFR"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
