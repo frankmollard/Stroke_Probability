@@ -6,7 +6,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor 
-from catboost import CatBoostClassifier
+from catboost import CatBoostClassifier, CatBoostRegressor 
 
 import joblib
 
@@ -63,7 +63,7 @@ svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
-def loadCatBoost(CB = CatBoostClassifier()):
+def loadCatBoost(CB = CatBoostClassifier(), C=["cb1", "cb2"]):
     
     s3 = boto3.resource(
         service_name='s3',
@@ -74,7 +74,7 @@ def loadCatBoost(CB = CatBoostClassifier()):
 
     models=[]
 
-    for c in ["cb1", "cb2"]:
+    for c in C:
         
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
@@ -82,10 +82,10 @@ def loadCatBoost(CB = CatBoostClassifier()):
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1]
+    return models
     
-cb1, cb2 = loadCatBoost()
-
+catClassifier = loadCatBoost()
+cb1, cb2 = catClassifier[0], catClassifier[0]
 
 # Notify the reader that the data was successfully loaded.
 data_load_state1.text("AI-Models Loaded")
