@@ -80,7 +80,7 @@ def loadCatBoost(_CB = CatBoostClassifier(), C=["cb1", "cb2"]):
         file_stream = io.BytesIO()
         obj.download_fileobj(file_stream)# downoad to memory
         
-        models.append(CB.load_model(blob=file_stream.getvalue()))
+        models.append(_CB.load_model(blob=file_stream.getvalue()))
         
     return models
     
