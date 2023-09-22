@@ -80,7 +80,7 @@ def loadCatBoost():
         file_stream = io.BytesIO()
         obj.download_fileobj(file_stream)# downoad to memory
         
-        if c =="errCBR":
+        if c == "errCBR":
             CB = CatBoostRegressor()
         else:
             CB = CatBoostClassifier()
@@ -270,7 +270,7 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction 
 @st.cache_data
 def errPred(df):
-    error = errCBR.predict(df)[0]
+    error = errCBR.predict(df)[0][0]
     return error
 
 uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
@@ -334,7 +334,7 @@ tab1.metric(
 )
 
 tab1.text("Confidence in the risk assessment:\n" + \
-          str((1-uncertainty[0])*100) + " %."
+          str(round((1-uncertainty)*100),1) + " %."
 )
 
 #######Additional Information##################
