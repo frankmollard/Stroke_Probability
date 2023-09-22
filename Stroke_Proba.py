@@ -56,7 +56,7 @@ def loadAllModels(url):
                 )
             )
  
-    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7]
 
 svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2 = loadAllModels(URL)
 
