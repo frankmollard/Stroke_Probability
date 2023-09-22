@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import GradientBoostingRegressor as GBR
-from catboost import CatBoostClassifier, CatBoostRegressor
+from sklearn.ensemble import RandomForestRegressor 
+from catboost import CatBoostClassifier
 
 import joblib
 
@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache_resource()
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errRFR"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
@@ -59,7 +59,7 @@ def loadAllModels(url):
         
     return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, err = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
@@ -74,22 +74,19 @@ def loadCatBoost():
 
     models=[]
 
-    for c in ["cb1", "cb2", "errCBR"]:
+    for c in ["cb1", "cb2"]:
         
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
         obj.download_fileobj(file_stream)# downoad to memory
         
-        if c == "errCBR":
-            CB = CatBoostRegressor()
-        else:
-            CB = CatBoostClassifier()
+        CB = CatBoostClassifier()
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1], models[2]
+    return models[0], models[1]
     
-cb1, cb2, errCBR = loadCatBoost()
+cb1, cb2 = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
@@ -270,7 +267,7 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction 
 @st.cache_data
 def errPred(df):
-    error = errGBR.predict(df)[0]
+    error = err.predict(df)[0]
     return error
 
 uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
