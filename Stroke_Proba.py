@@ -46,7 +46,7 @@ data_load_state1 = tab1.text('Loading models...')
 data_load_state2 = tab2.text('Loading models...')
 
 #Load Sklearn models
-@st.cache_data()
+@st.cache_resource()
 def loadAllModels(url):
     models=[]
     for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
