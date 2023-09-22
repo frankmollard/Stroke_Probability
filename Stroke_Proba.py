@@ -270,7 +270,7 @@ def errPred(df):
     error = ERROR.predict(df)[0]
     return error
 
-uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
+#uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
@@ -330,9 +330,9 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-tab1.text("Confidence in the risk assessment:\n" + \
-          str(round((1-uncertainty)*100),1) + " %."
-)
+#tab1.text("Confidence in the risk assessment:\n" + \
+#          str(round((1-uncertainty)*100),1) + " %."
+#)
 
 #######Additional Information##################
 
