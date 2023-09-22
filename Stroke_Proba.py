@@ -338,9 +338,9 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-tab1.text("Confidence in the risk assessment:\n" + \
-          str(round((1-uncertainty)*100, 1)) + " %."
-)
+#tab1.text("Confidence in the risk assessment:\n" + \
+#          str(round((1-uncertainty)*100, 1)) + " %."
+#)
 
 #######Additional Information##################
 
