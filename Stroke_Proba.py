@@ -81,8 +81,8 @@ def loadCatBoost():
         
         CB = CatBoostClassifier()
 
-        if c == "errCBR":
-            CB = CatBoostRegressor()
+        #if c == "errCBR":
+        #    CB = CatBoostRegressor()
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
