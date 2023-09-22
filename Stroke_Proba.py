@@ -63,7 +63,7 @@ svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
-def loadCatBoost(CB = CatBoostClassifier(), C=["cb1", "cb2"]):
+def loadCatBoost(_CB = CatBoostClassifier(), C=["cb1", "cb2"]):
     
     s3 = boto3.resource(
         service_name='s3',
