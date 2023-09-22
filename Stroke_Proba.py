@@ -63,7 +63,7 @@ svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
-def loadCatBoost():
+def loadCatBoost(CB = CatBoostClassifier()):
     
     s3 = boto3.resource(
         service_name='s3',
@@ -79,8 +79,6 @@ def loadCatBoost():
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
         obj.download_fileobj(file_stream)# downoad to memory
-        
-        CB = CatBoostClassifier()
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
