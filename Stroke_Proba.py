@@ -87,9 +87,9 @@ def loadCatBoost():
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1], models[2]
+    return models[0], models[1]#, models[2]
     
-cb1, cb2, errCBR = loadCatBoost()
+cb1, cb2 = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
