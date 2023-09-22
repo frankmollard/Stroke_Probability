@@ -273,7 +273,7 @@ def errPred(df):
     error = errCBR.predict(df)#[0]
     return error
 
-#uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
+uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
@@ -302,11 +302,6 @@ def delta(l, p):
         l.append(round(p*100, 1))
         d = l[1] - l[0]
     return d
-
-#@st.cache_data()
-#def delta(n,o):
-#        d=n-o
-#        return d
 
 
 if 'old' not in st.session_state:
@@ -338,9 +333,9 @@ tab1.metric(
     delta_color ="inverse"
 )
 
-#tab1.text("Confidence in the risk assessment:\n" + \
-#          str(round((1-uncertainty)*100, 1)) + " %."
-#)
+tab1.text("Confidence in the risk assessment:\n" + \
+          str(round((1-uncertainty)*100, 1)) + " %."
+)
 
 #######Additional Information##################
 
