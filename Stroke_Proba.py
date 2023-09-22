@@ -74,16 +74,16 @@ def loadCatBoost():
 
     models=[]
 
-    for c in ["cb1", "cb2", "cb3"]:
+    for c in ["cb1", "cb2", "errCBR"]:
         
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
         obj.download_fileobj(file_stream)# downoad to memory
         
-        CB = CatBoostClassifier()
-
-        #if c =="errCBR":
-        #    CB = CatBoostRegressor()
+        if c =="errCBR":
+            CB = CatBoostRegressor()
+        else:
+            CB = CatBoostClassifier()
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
