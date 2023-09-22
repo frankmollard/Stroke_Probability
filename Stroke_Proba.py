@@ -87,9 +87,9 @@ def loadCatBoost():
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1]#, models[2]
+    return models[0], models[1], models[2]
     
-cb1, cb2 = loadCatBoost()
+cb1, cb2, errCBR = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
@@ -273,7 +273,7 @@ def errPred(df):
     error = errCBR.predict(df)#[0]
     return error
 
-uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
+#uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
