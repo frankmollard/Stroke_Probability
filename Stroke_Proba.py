@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import GradientBoostingRegressor as GBR
+#from sklearn.ensemble import GradientBoostingRegressor as GBR
 from catboost import CatBoostClassifier, CatBoostRegressor 
 
 import joblib
@@ -49,16 +49,16 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache_resource()
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
                 )
             )
  
-    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
+    return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7]
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2 = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
@@ -272,7 +272,7 @@ def errPred(df):
     error = errCBR.predict(df)[0]
     return error
 
-uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
+#uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
