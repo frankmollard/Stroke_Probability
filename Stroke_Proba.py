@@ -6,7 +6,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 #from sklearn.ensemble import GradientBoostingRegressor as GBR
-from catboost import CatBoostClassifier, CatBoostRegressor 
+from catboost import CatBoostClassifier#, CatBoostRegressor 
 
 import joblib
 
@@ -73,7 +73,7 @@ def loadCatBoost():
 
     models=[]
 
-    for c in ["cb1", "cb2", "errCBR"]:
+    for c in ["cb1", "cb2"]:
         
         obj = bucket.Object("%s" % (c))
         file_stream = io.BytesIO()
@@ -86,9 +86,9 @@ def loadCatBoost():
         
         models.append(CB.load_model(blob=file_stream.getvalue()))
         
-    return models[0], models[1], models[2]
+    return models[0], models[1]
     
-cb1, cb2, errCBR = loadCatBoost()
+cb1, cb2 = loadCatBoost()
 
 
 # Notify the reader that the data was successfully loaded.
@@ -269,7 +269,7 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction 
 @st.cache_data
 def errPred(df):
-    error = errCBR.predict(df)[0]
+    error = .predict(df)[0]
     return error
 
 #uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
