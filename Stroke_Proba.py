@@ -87,7 +87,7 @@ def loadCatBoost(_CB = CatBoostClassifier(), C=["cb1", "cb2"]):
 catClassifier = loadCatBoost()
 cb1, cb2 = catClassifier[0], catClassifier[0]
 
-catRegressor = loadCatBoost(CB = CatBoostRegressor(), C=["errCBR"])
+catRegressor = loadCatBoost(_CB = CatBoostRegressor(), C=["errCBR"])
 errCBR = catRegressor[0]
 
 # Notify the reader that the data was successfully loaded.
