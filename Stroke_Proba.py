@@ -49,7 +49,7 @@ data_load_state2 = tab2.text('Loading models...')
 @st.cache_resource()
 def loadAllModels(url):
     models=[]
-    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errRFR"]:
+    for c in ["svm1", "svm2", "logit1", "logit2", "nbc1", "nbc2", "rf1", "rf2", "errGBR"]:
         models.append(
             joblib.load(
                 urllib.request.urlopen(url + "/" + "{}.pkl".format(c))
@@ -59,7 +59,7 @@ def loadAllModels(url):
         
     return models[0], models[1], models[2], models[3], models[4], models[5], models[6], models[7], models[8]
 
-svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errModel = loadAllModels(URL)
+svm1, svm2, logit1, logit2, nbc1, nbc2, rf1, rf2, errGBR = loadAllModels(URL)
 
 #Load CatBoost
 @st.cache_resource()
@@ -267,7 +267,7 @@ pred = predict(data, dataC, contVars, weights=[0.59, 0.11, 0.02, 0.08, 0.13, 0.5
 #Error Prediction 
 @st.cache_data
 def errPred(df):
-    er = errModel.predict(df)[0]
+    er = errGBR.predict(df)[0]
     return er
 
 #uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
