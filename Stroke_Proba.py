@@ -332,7 +332,7 @@ tab1.metric(
 )
 
 tab1.text("Confidence in the risk assessment:\n" + \
-          str(round((1-uncertainty)*100),1) + " %."
+          str(round((1-uncertainty)*100,1)) + " %."
 )
 
 #######Additional Information##################
