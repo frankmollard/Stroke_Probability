@@ -271,7 +271,7 @@ def errPred(df):
     er = errCBR.predict(df)[0]
     return er
 
-uncertainty = np.where(errPred(data) < 0, 0, errPred(data))
+uncertainty = np.where(errPred(dataC) < 0, 0, errPred(dataC))
 
 #Contributions to the Prediction by Model
 @st.cache_data()
