@@ -20,8 +20,6 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
-#st.set_page_config(page_title="Stroke Risk Assessment")
-
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
 tab1.title('Stroke Prediction')
