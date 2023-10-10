@@ -1,16 +1,5 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="Stroke Risk",
-    page_icon="🧊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Development Information': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app',
-        'by': "Frank Mollard"
-    }
-)
-
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
