@@ -25,8 +25,8 @@ tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 tab1.title('Stroke Prediction')
 tab1.text(
         """
-        This application uses various AI-algorithms
-        to indicate the risk of a stroke. If a stroke is suspected, 
+        This application is designed to assess the risk of stroke 
+        using machine learning algorithms. If a stroke is suspected, 
         a doctor must always be consulted. This is a medical emergency. 
         This application is for demonstration purposes only. 
         """
