@@ -1,5 +1,4 @@
 import streamlit as st
-
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -7,18 +6,16 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor 
 from catboost import CatBoostClassifier, CatBoostRegressor 
-
 import joblib
-
 import pandas as pd
 import numpy as np
-
 import urllib.request
-
 import boto3
 from botocore.config import Config
 from botocore import UNSIGNED
 import io
+
+st.set_page_config(page_title="Stroke Risk", page_icon="🧊", menu_items={'Development Information': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app'})
 
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
