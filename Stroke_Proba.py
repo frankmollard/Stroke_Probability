@@ -15,7 +15,12 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
-st.set_page_config(page_title="Stroke Risk", page_icon="🧊", menu_items={'Development Information': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app'})
+st.set_page_config(
+        page_title="Stroke Risk", page_icon="🧊", 
+        menu_items={
+                'Development Information': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app'
+        }
+)
 
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
