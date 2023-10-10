@@ -18,7 +18,8 @@ import io
 st.set_page_config(
         page_title="Stroke Risk", page_icon="", 
         menu_items={
-                'Get Help': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app'
+                'Get Help': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app',
+                'About': 'Developed by Frank Mollard'
         }
 )
 
