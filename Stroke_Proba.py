@@ -20,8 +20,6 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
-
-
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
 tab1.title('Stroke Assessment')
