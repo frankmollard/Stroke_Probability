@@ -20,9 +20,11 @@ from botocore.config import Config
 from botocore import UNSIGNED
 import io
 
+
+
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
-tab1.title('Stroke Prediction')
+tab1.title('Stroke Assessment')
 tab1.text(
         """
         This application is designed to assess the risk of stroke 
