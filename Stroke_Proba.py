@@ -409,7 +409,7 @@ pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 
 
 def formater(styler):
     styler.format("{:.2f}")
-    styler.background_gradient(cmap="Reds")
+    styler.background_gradient(cmap="Greens")
     return styler
 
 cont = contributions(
