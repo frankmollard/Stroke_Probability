@@ -30,8 +30,7 @@ tab1.text(
         """
         This application is designed to assess the risk of stroke 
         using machine learning algorithms. If a stroke is suspected, 
-        a doctor must always be consulted. This is a medical emergency. 
-        This application is for demonstration purposes only. 
+        a doctor must always be consulted. This is a medical emergency.  
         """
         )
 
