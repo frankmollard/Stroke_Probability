@@ -1,0 +1,1 @@
+<iframe src="https://www.kaggle.com/embed/frankmollard/machine-learning-process-idea-2-app?kernelSessionId=146042773" height="800" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="Machine Learning Process [Idea 2 App] 🎯"></iframe>
