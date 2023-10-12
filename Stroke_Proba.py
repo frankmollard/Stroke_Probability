@@ -25,7 +25,7 @@ st.set_page_config(
 
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
-tab1.header('Stroke Assessment')
+tab1.header('Stroke Risk Assessment')
 tab1.text(
         """
         This application is designed to assess the risk of stroke 
