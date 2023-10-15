@@ -137,10 +137,12 @@ if work_type == "Child":
     minAge = 0
     maxAge = 14
     defAge = 10
+    adjst = 32
 else:
     minAge = 15
     maxAge = 100
     defAge = 40
+    adjst = 16
 
 age = st.sidebar.slider('Age', minAge, maxAge, defAge)  
 bmi = st.sidebar.slider('BMI', 5, 45, 20) 
@@ -327,7 +329,6 @@ else:
 #cf: https://pdfs.semanticscholar.org/4808/e782ebbda2893b0ca7af81c16c18bb522dff.pdf?_gl=1*nsrffc*_ga*MTI4NTIxMzUxMC4xNjQxMDM4NTE5*_ga_H7P4ZT52H5*MTY3NjgxNTY4My4xLjAuMTY3NjgxNTY4NC4wLjAuMA..
 #google image search for "risk of stroke"
 
-adjst=10
 
 #Show metrics#######################
 tab1.metric(
