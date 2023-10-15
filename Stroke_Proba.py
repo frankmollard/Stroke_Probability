@@ -327,7 +327,7 @@ else:
 #cf: https://pdfs.semanticscholar.org/4808/e782ebbda2893b0ca7af81c16c18bb522dff.pdf?_gl=1*nsrffc*_ga*MTI4NTIxMzUxMC4xNjQxMDM4NTE5*_ga_H7P4ZT52H5*MTY3NjgxNTY4My4xLjAuMTY3NjgxNTY4NC4wLjAuMA..
 #google image search for "risk of stroke"
 
-adjst=6
+adjst=10
 
 #Show metrics#######################
 tab1.metric(
