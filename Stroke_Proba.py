@@ -100,9 +100,9 @@ data_load_state2.text("AI-Models Loaded")
 st.sidebar.title("Patient Data")
 
 work_type = st.sidebar.selectbox(
-    'Work Type', ["Children", "Government", "Never worked", "Private", "Self-employed"]
+    'Work Type', ["Child", "Government", "Never worked", "Private", "Self-employed"]
     )    
-if work_type == "Children":
+if work_type == "Child":
     work_type_children = 1
     work_type_Self_employed	= 0
     work_type_Private = 0
