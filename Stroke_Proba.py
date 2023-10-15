@@ -133,7 +133,7 @@ else:
     work_type_Never_worked = 0
     workType = "Govt_job"
 
-if work_type == "Children":
+if work_type == "Child":
     minAge = 0
     maxAge = 14
     defAge = 10
