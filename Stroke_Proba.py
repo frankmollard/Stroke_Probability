@@ -99,7 +99,48 @@ data_load_state2.text("AI-Models Loaded")
 
 st.sidebar.title("Patient Data")
 
-age = st.sidebar.slider('Age', 0, 100, 40)  
+work_type = st.sidebar.selectbox(
+    'Work Type', ["Children", "Government", "Never worked", "Private", "Self-employed"]
+    )    
+if work_type == "Children":
+    work_type_children = 1
+    work_type_Self_employed	= 0
+    work_type_Private = 0
+    work_type_Never_worked = 0
+    workType = "children"
+elif work_type == "Never worked":
+    work_type_children = 0
+    work_type_Self_employed	= 0
+    work_type_Private = 0
+    work_type_Never_worked = 1
+    workType = "Never_worked"
+elif work_type == "Private":
+    work_type_children = 0
+    work_type_Self_employed	= 0
+    work_type_Private = 1
+    work_type_Never_worked = 0
+    workType = "Private"
+elif work_type == "Self-employed":
+    work_type_children = 0
+    work_type_Self_employed	= 1
+    work_type_Private = 0
+    work_type_Never_worked = 0
+    workType = "Self-employed"
+else:
+    work_type_children = 0
+    work_type_Self_employed	= 0
+    work_type_Private = 0
+    work_type_Never_worked = 0
+    workType = "Govt_job"
+
+if work_type == "Children":
+    minAge = 0
+    maxAge = 14
+else:
+    minAge = 15
+    maxAge = 100
+
+age = st.sidebar.slider('Age', minAge, maxAge, 40)  
 bmi = st.sidebar.slider('BMI', 5, 45, 20) 
 agl = st.sidebar.slider('Average Glucose Level', 50, 400, 100) 
 
@@ -142,40 +183,6 @@ if gender == "Male":
     gender_Male = 1
 else:
     gender_Male = 0
-    
-work_type = st.sidebar.selectbox(
-    'Work Type', ["Children", "Government", "Never worked", "Private", "Self-employed"]
-    )    
-if work_type == "Children":
-    work_type_children = 1
-    work_type_Self_employed	= 0
-    work_type_Private = 0
-    work_type_Never_worked = 0
-    workType = "children"
-elif work_type == "Never worked":
-    work_type_children = 0
-    work_type_Self_employed	= 0
-    work_type_Private = 0
-    work_type_Never_worked = 1
-    workType = "Never_worked"
-elif work_type == "Private":
-    work_type_children = 0
-    work_type_Self_employed	= 0
-    work_type_Private = 1
-    work_type_Never_worked = 0
-    workType = "Private"
-elif work_type == "Self-employed":
-    work_type_children = 0
-    work_type_Self_employed	= 1
-    work_type_Private = 0
-    work_type_Never_worked = 0
-    workType = "Self-employed"
-else:
-    work_type_children = 0
-    work_type_Self_employed	= 0
-    work_type_Private = 0
-    work_type_Never_worked = 0
-    workType = "Govt_job"
     
 married = st.sidebar.selectbox(
     'Ever Married', ["Yes", "No"]
