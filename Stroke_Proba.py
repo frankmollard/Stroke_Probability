@@ -136,11 +136,13 @@ else:
 if work_type == "Children":
     minAge = 0
     maxAge = 14
+    defAge = 10
 else:
     minAge = 15
     maxAge = 100
+    defAge = 40
 
-age = st.sidebar.slider('Age', minAge, maxAge, 40)  
+age = st.sidebar.slider('Age', minAge, maxAge, defAge)  
 bmi = st.sidebar.slider('BMI', 5, 45, 20) 
 agl = st.sidebar.slider('Average Glucose Level', 50, 400, 100) 
 
