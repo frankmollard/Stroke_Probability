@@ -137,7 +137,7 @@ if work_type == "Child":
     minAge = 0
     maxAge = 14
     defAge = 10
-    adjst = 32
+    adjst = 128
 else:
     minAge = 15
     maxAge = 100
@@ -333,9 +333,9 @@ else:
 #Show metrics#######################
 tab1.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*100/adjst, 1)) + " %", 
+    value=str(round(pred*100/adjst, 2)) + " %", 
     #delta=str(round(delta(userData(), pred)/adjst, 2)) + " percentage points", 
-    delta=str(round((pred*100-old*100)/adjst, 2)) + " percentage points", 
+    delta=str(round((pred*100-old*100)/adjst, 3)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
@@ -417,7 +417,7 @@ pred_nbc_1 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0.1
 pred_nbc_2 = predict(data, dataC, contVars, weights=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05]) * 100/adjst
 
 def formater(styler):
-    styler.format("{:.2f}")
+    styler.format("{:.3f}")
     styler.background_gradient(cmap="Greens")
     return styler
 
@@ -439,7 +439,7 @@ data_load_state2.text("Prediction done")
 
 tab2.metric(
     label="Risk of Stroke", 
-    value=str(round(pred*100/adjst, 1)) + " %", 
+    value=str(round(pred*100/adjst, 2)) + " %", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     """
