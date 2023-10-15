@@ -137,12 +137,12 @@ if work_type == "Child":
     minAge = 0
     maxAge = 14
     defAge = 10
-    adjst = 128
+    adjst = 55
 else:
     minAge = 15
     maxAge = 100
     defAge = 40
-    adjst = 16
+    adjst = 50
 
 age = st.sidebar.slider('Age', minAge, maxAge, defAge)  
 bmi = st.sidebar.slider('BMI', 5, 45, 20) 
