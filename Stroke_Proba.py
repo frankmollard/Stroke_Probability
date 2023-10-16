@@ -313,13 +313,17 @@ def delta(l, p):
         d = l[1] - l[0]
     return d
 
-
+#Session States######################
 if 'old' not in st.session_state:
     st.session_state.old = 0
     old = pred
+    st.session_state.adjstOld = adjst
+    adjstOld = adjst
 else:
     old = st.session_state.old
     st.session_state.old = pred
+    adjstOld = st.session_state.adjstOld
+    st.session_state.adjstOld = adjst
 
 #Adjustment#########################
 
@@ -334,7 +338,7 @@ tab1.metric(
     label="Risk of Stroke", 
     value=str(round(pred*100/adjst, 2)) + " %", 
     #delta=str(round(delta(userData(), pred)/adjst, 2)) + " percentage points", 
-    delta=str(round((pred*100-old*100)/adjst, 3)) + " percentage points", 
+    delta=str(round(pred*100/adjst-old*100/adjstOld, 3)) + " percentage points", 
     help="""
     This is the indication for the risk of stroke, given the patient data.
     The change in percentage points compared to your previous indication is displayed smaller below.
