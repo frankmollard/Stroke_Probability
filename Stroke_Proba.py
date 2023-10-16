@@ -315,7 +315,7 @@ def delta(l, p):
 
 #Session States######################
 if 'old' not in st.session_state:
-    st.session_state.old = 0
+    st.session_state.old = pred
     old = pred
     st.session_state.adjstOld = adjst
     adjstOld = adjst
