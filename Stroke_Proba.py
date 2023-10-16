@@ -143,7 +143,7 @@ else:
     defAge = 40
 
 age = st.sidebar.slider('Age', minAge, maxAge, defAge)  
-adjst = 1000/(age*2)
+adjst = 10000/(age*20+1)
 bmi = st.sidebar.slider('BMI', 5, 45, 20) 
 agl = st.sidebar.slider('Average Glucose Level', 50, 400, 100) 
 
