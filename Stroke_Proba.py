@@ -27,10 +27,15 @@ tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
 tab1.header('Stroke Risk Assessment')
 tab1.text(
-        """
+        body ="""
         This application is designed to assess the risk of stroke 
         using machine learning algorithms. If a stroke is suspected, 
         a doctor must always be consulted. This is a medical emergency.  
+        """,
+        help="""
+        This application is based on scientific evidence, but does not 
+        include every risk factor. Therefore, this app should only be 
+        used as a first but not only assessment.
         """
         )
 
