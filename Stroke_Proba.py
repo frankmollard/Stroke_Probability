@@ -16,36 +16,36 @@ from botocore import UNSIGNED
 import io
 
 st.set_page_config(
-        page_title="Stroke Risk Assessment", page_icon="🧠", 
-        menu_items={
-                'Get Help': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app',
-                'About': 'Developed by Frank Mollard'
-        }
+    page_title="Stroke Risk Assessment", page_icon="🧠", 
+    menu_items={
+        'Get Help': 'https://www.kaggle.com/code/frankmollard/machine-learning-process-idea-2-app',
+        'About': 'Developed by Frank Mollard'
+    }
 )
 
 tab1, tab2 = st.tabs(["Stroke Risk", "Advanced Information"])
 
 tab1.header('Stroke Risk Assessment')
 tab1.text(
-        body ="""
-        This application is designed to assess the risk of stroke 
-        using machine learning algorithms. If a stroke is suspected, 
-        a doctor must always be consulted. This is a medical emergency.  
-        """,
-        help="""
-        This application is based on scientific evidence, but does not 
-        include every risk factor. Therefore, this app should only be 
-        used as a first but not only assessment.
-        """
-        )
+    body ="""
+    This application is designed to assess the risk of stroke 
+    using machine learning algorithms. If a stroke is suspected, 
+    a doctor must always be consulted. This is a medical emergency.  
+    """,
+    help="""
+    This application is based on scientific evidence, but does not 
+    include every risk factor. Therefore, this app should only be 
+    used as a first but not only assessment.
+    """
+)
 
 tab2.title('Contribution by Model')
 tab2.text(
-        """
-        At this point, you can check the risk contributions in
-        percentage points for the individual models.
-        """
-        )
+    """
+    At this point, you can check the risk contributions in
+    percentage points for the individual models.
+    """
+)
 
 URL="https://strokemodels.s3.eu-central-1.amazonaws.com"
 
