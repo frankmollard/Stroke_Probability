@@ -34,7 +34,7 @@ tab1.text(
     """,
     help="""
     This application is based on scientific evidence, but does not 
-    include every risk factor. Therefore, this app should only be 
+    include all risk factors. Therefore, this app should only be 
     used as a first but not only assessment.
     """
 )
